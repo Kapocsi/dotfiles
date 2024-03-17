@@ -1,0 +1,18 @@
+shell ={ program = "/opt/homebrew/bin/tmux", args= ["-l"]}
+
+[keyboard]
+bindings = [{key ="Enter", mods="Super", action = "ToggleFullscreen"}]
+
+[font]
+normal = {family = "SpaceMono Nerd Font"}
+
+[window]
+decorations= "Buttonless"
+blur = true
+opacity= 0.6
+padding = { x = 3, y = 3}
+dynamic_title = true
+# startup_mode ="Fullscreen"
+
+[colors.primary]
+background = "#000000"
