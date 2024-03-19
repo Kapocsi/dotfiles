@@ -1,8 +1,8 @@
 ## Initialize Omz ## 
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="$HOME/dotfiles/ohmyzsh"
 ZSH_THEME="robbyrussell"
 
-plugins=(git thefuck z pip macos gh python rust brew github zsh-interactive-cd zsh-syntax-highlighting docker)
+plugins=(git thefuck z pip macos gh python rust brew github zsh-interactive-cd docker)
 
 path+=("$HOME/.oh-my-zsh")
 path+=("$HOME/.cargo/bin")
@@ -43,6 +43,7 @@ fi
  ### Initialize Z and thefuck ### 
  . ~/z/z.sh
 source $ZSH/oh-my-zsh.sh
+source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ######## Remaps ###########
 alias cat="bat"
