@@ -14,6 +14,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
             buffer = bufnr
         }
 
+        require"which-key".register({
+            ["la"] = {
+                function() vim.lsp.buf.code_action() end,
+                'Code Action'
+            }
+        }, {
+            prefix = "<leader>",
+            mode = "v"
+        });
+
         require("which-key").register({
             ['K'] = {
                 function() vim.lsp.buf.hover() end,
