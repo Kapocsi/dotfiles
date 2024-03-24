@@ -1,49 +1,74 @@
 local wk = require("which-key")
+local telescope = require("telescope.builtin")
+
+local function is_git_directory()
+    -- Use Neovim's vim.fn.system to execute the git command
+    -- and check if the current directory is inside a git work tree
+    local result = vim.fn.system('git rev-parse --is-inside-work-tree')
+
+    -- Trim the newline character from the output for accurate comparison
+    result = result:gsub('%s+', '')
+
+    -- Check the result of the command. If it's 'true', it means we're in a git directory
+    if result == 'true' then
+        print('This is a git directory.')
+        return true
+    else
+        print('This is not a git directory.')
+        return false
+    end
+end
+
+wk.register({
+    ["<A-Right>"] = {
+        "<cmd>bn<cr>",
+        "Buffer Next"
+    },
+    ["<A-Left>"] = {
+        "<cmd>bp<cr>",
+        "Buffer Previous"
+    }
+
+})
 
 wk.register({
     f = {
         name = "find", -- optional group name
         F = {
-            "<cmd>Telescope find_files<cr>",
+            telescope.find_files,
             "Find File"
         },
         f = {
-            "<cmd>Telescope git_files<cr>",
+            function()
+                if (is_git_directory()) then
+                    telescope.git_files()
+                else
+                    telescope.find_files()
+                end
+            end,
             "Find File"
         },
         s = {
-            "<cmd>Telescope live_grep<cr>",
+            telescope.live_grep,
             "Find File"
         },
         b = {
-            "<cmd>Telescope buffers<cr>",
+            telescope.buffers,
             "Find Buffer"
         },
         S = {
-            "<cmd>Telescope lsp_workspace_symbols<cr>",
+            telescope.lsp_workspace_symbols,
             "Find Workspace Symbol"
 
         }
     },
-    ['b'] = {
-        name = "buffer",
-        b = {
-            "<cmd>bp<cr>",
-            "Buffer Previous"
-        },
-        n = {
-            "<cmd>bn<cr>",
-            "Buffer Next"
-        },
-        ["|"] = {
-            "<cmd>vsplit<cr>",
-            "Vertical Split"
-        },
-        ['"'] = {
-            "<cmd>split<cr>",
-            "Split"
-        }
-
+    ["|"] = {
+        "<cmd>vsplit<cr>",
+        "Vertical Split"
+    },
+    ['"'] = {
+        "<cmd>split<cr>",
+        "Split"
     },
     u = {
         "<cmd>UndotreeToggle<CR>",
@@ -87,10 +112,3 @@ wk.register({
 }, {
     mode = "v"
 })
-
--- --- Commenting in visualmode
--- vim.keymap.set("v", "<leader>/",
---                "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>")
-
--- vim.keymap.set("v", "<Tab>", ">gv")
--- vim.keymap.set("v", "<S-Tab>", "<gv")

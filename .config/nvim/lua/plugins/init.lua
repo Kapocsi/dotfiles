@@ -1,10 +1,10 @@
 return {
-    "https://github.com/andweeb/presence.nvim",
+    "andweeb/presence.nvim",
 
-    "https://github.com/xiyaowong/transparent.nvim",
-    "https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
-    "https://github.com/numToStr/Comment.nvim",
-    "https://github.com/windwp/nvim-ts-autotag",
+    "xiyaowong/transparent.nvim",
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    "numToStr/Comment.nvim",
+    "windwp/nvim-ts-autotag",
     {
         'altermo/ultimate-autopair.nvim',
         event = {
@@ -21,8 +21,8 @@ return {
         "folke/neoconf.nvim",
         cmd = "Neoconf"
     },
-    "https://github.com/mbbill/undotree",
-    "https://github.com/nvim-treesitter/nvim-treesitter",
+    "mbbill/undotree",
+    "nvim-treesitter/nvim-treesitter",
     {
         'nvimdev/dashboard-nvim',
         event = 'VimEnter',

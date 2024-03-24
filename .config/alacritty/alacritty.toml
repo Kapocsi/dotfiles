@@ -1,10 +1,10 @@
-shell ={ program = "/opt/homebrew/bin/tmux", args= ["-l"]}
+shell ={ program = "tmux", args= ["-l"]}
 
 [keyboard]
 bindings = [{key ="Enter", mods="Super", action = "ToggleFullscreen"}]
 
 [font]
-normal = {family = "SpaceMono Nerd Font"}
+normal = {family = "Agave Nerd Font"}
 
 [window]
 decorations= "Buttonless"
