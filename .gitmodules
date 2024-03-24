@@ -2,7 +2,7 @@
 	path = .tmux
 	url = https://github.com/gpakosz/.tmux.git
 [submodule "z"]
-	path = z
+	path = .z-jump
 	url = https://github.com/rupa/z
 [submodule "ohmyzsh"]
 	path = ohmyzsh

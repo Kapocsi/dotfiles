@@ -41,7 +41,7 @@ fi
 
 
  ### Initialize Z and thefuck ### 
- . ~/z/z.sh
+ . ~/.z-jump/z.sh
 source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -58,6 +58,3 @@ alias vim="nvim"
 ######## Helpers ########
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
-
-
-
