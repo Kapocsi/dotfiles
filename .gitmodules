@@ -1,12 +1,12 @@
 [submodule ".tmux"]
 	path = .tmux
 	url = https://github.com/gpakosz/.tmux.git
-[submodule "z"]
-	path = .z_jump
-	url = https://github.com/rupa/z
 [submodule "ohmyzsh"]
 	path = ohmyzsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
 [submodule "zsh-syntax-highlighting"]
 	path = zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule "z-jump"]
+	path = z-jump
+	url = https://github.com/rupa/z
