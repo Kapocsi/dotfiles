@@ -32,6 +32,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias ins_vpn_disconnect="sudo /Users/thomaskapocsi/.config/openvpn/vpn_disconnect.sh"
 fi
 
+if [[ "$OSTYPE" ==  "linux-gnu" ]]; then 
+    # Mimics the pbcopy/pbpaste of macos
+    alias pbcopy='xclip -selection clipboard'
+    alias pbpaste='xclip -selection clipboard -o'
+
+fi
+
 
  # if [[ -n $SSH_CONNECTION ]]; then
  #   export EDITOR='vim'
@@ -41,7 +48,7 @@ fi
 
 
  ### Initialize Z and thefuck ### 
- . ~/dotfiles/packages/z-jump/z.sh
+ . ~/dotfiles/packages/z/z.sh
 source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/packages/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
