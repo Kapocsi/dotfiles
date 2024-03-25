@@ -8,7 +8,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(args)
         local bufnr = args.buf
-        -- local client = vim.lsp.get_client_by_id(args.data.client_id)
 
         local opts = {
             buffer = bufnr
@@ -38,6 +37,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
                     function() vim.lsp.buf.declaration() end,
                     'Jump Declaration'
                 },
+                u = {
+                    require("fzf-lua").lsp_incoming_calls,
+                    "View Usages"
+
+                },
                 i = {
                     function() vim.lsp.buf.implementation() end,
                     'View Implementation'
@@ -47,7 +51,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
                     'Jump Type Definition'
                 },
                 r = {
-                    function() vim.lsp.buf.references() end,
+                    require("fzf-lua").lsp_references,
+
                     'View References'
                 },
                 s = {

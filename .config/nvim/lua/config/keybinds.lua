@@ -1,5 +1,6 @@
 local wk = require("which-key")
 local telescope = require("telescope.builtin")
+local fzf_lua = require("fzf-lua")
 
 local function is_git_directory()
     -- Use Neovim's vim.fn.system to execute the git command
@@ -19,6 +20,28 @@ local function is_git_directory()
     end
 end
 
+local function get_git_root()
+    local result = vim.fn.system('git rev-parse --show-toplevel')
+
+    result = result:gsub('%s+', '')
+
+    if (string.len(result) > 0) then
+        return result
+    else
+        return nil
+    end
+end
+
+local function cwd_get()
+    local git_dir = get_git_root();
+
+    if (git_dir ~= nil) then
+        return git_dir
+    else
+        return vim.fn.getcwd()
+    end
+end
+
 wk.register({
     ["<A-Right>"] = {
         "<cmd>bn<cr>",
@@ -35,29 +58,38 @@ wk.register({
     f = {
         name = "find", -- optional group name
         F = {
-            telescope.find_files,
+            function()
+                fzf_lua.files {
+                    cwd = cwd_get() -- Traverse to the root of the project if needed
+
+                }
+            end,
             "Find File"
         },
         f = {
             function()
                 if (is_git_directory()) then
-                    telescope.git_files()
+                    fzf_lua.git_files({
+                        cwd = cwd_get()
+                    })
                 else
-                    telescope.find_files()
+                    fzf_lua.files({
+                        cwd = cwd_get()
+                    })
                 end
             end,
             "Find File"
         },
         s = {
-            telescope.live_grep,
+            fzf_lua.live_grep, -- telescope.live_grep,
             "Find File"
         },
         b = {
-            telescope.buffers,
+            fzf_lua.buffers,
             "Find Buffer"
         },
         S = {
-            telescope.lsp_workspace_symbols,
+            fzf_lua.lsp_workspace_symbols,
             "Find Workspace Symbol"
 
         }

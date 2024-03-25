@@ -16,3 +16,6 @@ dynamic_title = true
 
 [colors.primary]
 background = "#000000"
+
+# [debug]
+# render_timer=true
