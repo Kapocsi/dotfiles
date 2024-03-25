@@ -1,4 +1,6 @@
-shell ={ program = "tmux", args= ["-l"]}
+[shell]
+program="$TMUX"
+args = ["-l"]
 
 [keyboard]
 bindings = [{key ="Enter", mods="Super", action = "ToggleFullscreen"}]
@@ -14,8 +16,7 @@ padding = { x = 3, y = 3}
 dynamic_title = true
 # startup_mode ="Fullscreen"
 
+
 [colors.primary]
 background = "#000000"
 
-# [debug]
-# render_timer=true
