@@ -28,8 +28,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
 
     alias wind="echo \"Killing Windscribe\" && ps aux | grep -oE \"thomaskapocsi +([0-9)]).*(\"Windscribe\")\" | grep -oE \"thomaskapocsi +([0-9]+)\" | grep -oE \"([0-9]+)\" | xargs kill -9 || echo \"Starting WindSribe\" && open -a Windscribe"
-    alias ins_vpn_connect="sudo openvpn ~/.config/openvpn/macovpn-config.ovpn 1> /dev/null &"
-    alias ins_vpn_disconnect="sudo /Users/thomaskapocsi/.config/openvpn/vpn_disconnect.sh"
 fi
 
 if [[ "$OSTYPE" ==  "linux-gnu" ]]; then 
@@ -38,6 +36,10 @@ if [[ "$OSTYPE" ==  "linux-gnu" ]]; then
     alias pbpaste='xclip -selection clipboard -o'
 
 fi
+
+
+alias ins_vpn_connect="sudo openvpn $HOME/openvpn/macovpn-config.ovpn 1> /dev/null &"
+alias ins_vpn_disconnect="sudo $HOME/.config/openvpn/vpn_disconnect.sh"
 
 
  # if [[ -n $SSH_CONNECTION ]]; then
