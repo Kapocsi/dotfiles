@@ -16,6 +16,7 @@ _darcs
 \.gitmodules
 ^/packages
 ^/build.sh
+^/.ssh/config.tmpl
 
 .+~          # emacs backup files
 \#.*\#       # emacs autosave files
