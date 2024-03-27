@@ -38,7 +38,7 @@ if [[ "$OSTYPE" ==  "linux-gnu" ]]; then
 fi
 
 
-alias ins_vpn_connect="sudo openvpn $HOME/openvpn/macovpn-config.ovpn 1> /dev/null &"
+alias ins_vpn_connect="sudo $HOME/.config/openvpn/vpn_connect.sh"
 alias ins_vpn_disconnect="sudo $HOME/.config/openvpn/vpn_disconnect.sh"
 
 
