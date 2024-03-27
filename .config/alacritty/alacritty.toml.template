@@ -1,12 +1,12 @@
 [shell]
 program="$TMUX"
-args = ["-l"]
+args = ["new","-As0"]
 
 [keyboard]
 bindings = [{key ="Enter", mods="Super", action = "ToggleFullscreen"}]
 
 [font]
-normal = {family = "Agave Nerd Font"}
+normal = {family = "JetBrainsMono Nerd Font"}
 
 [window]
 decorations= "Buttonless"
