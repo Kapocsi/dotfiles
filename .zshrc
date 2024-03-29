@@ -4,29 +4,31 @@ ZSH_THEME="robbyrussell"
 
 plugins=(git thefuck z pip macos gh python rust brew github zsh-interactive-cd docker)
 
-path+=("$HOME/.oh-my-zsh")
-path+=("$HOME/.cargo/bin")
-path+=("$HOME/.bun")
-path+=("$BUN_INSTALL/bin")
+
 
 ## Macos Specifics
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+            . "/opt/anaconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="/opt/anaconda3/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+    # <<< conda initialize <<<
+
     eval "$(/opt/homebrew/bin/brew shellenv)"
-   
     export MANPATH="/opt/local/share/man:$MANPATH"
     
-    path+=("/opt/local/bin:/opt/local/sbin")
-    
+    alias "chrome"="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
     alias python="python3.12"
     alias code="open -a Visual Studio Code"
-
-
-    path+=("/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome")
-    path+=("/Library/Frameworks/Python.framework/Versions/3.10/bin")
-    path+=("/opt/homebrew/opt/mysql-client/bin")
-    path+=("/opt/homebrew/opt/postgresql@15/bin")
-
-
     alias wind="echo \"Killing Windscribe\" && ps aux | grep -oE \"thomaskapocsi +([0-9)]).*(\"Windscribe\")\" | grep -oE \"thomaskapocsi +([0-9]+)\" | grep -oE \"([0-9]+)\" | xargs kill -9 || echo \"Starting WindSribe\" && open -a Windscribe"
 fi
 
@@ -34,7 +36,6 @@ if [[ "$OSTYPE" ==  "linux-gnu" ]]; then
     # Mimics the pbcopy/pbpaste of macos
     alias pbcopy='xclip -selection clipboard'
     alias pbpaste='xclip -selection clipboard -o'
-
 fi
 
 
@@ -67,3 +68,4 @@ alias vim="nvim"
 ######## Helpers ########
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
+
