@@ -1,5 +1,7 @@
 ## Initialize Omz ## 
 export ZSH="$HOME/dotfiles/packages/ohmyzsh"
+export ZSH_CUSTOM="$HOME/dotfiles/ZSH_CUSTOM/"
+
 ZSH_THEME="robbyrussell"
 
 plugins=(git thefuck z pip macos gh python rust brew github zsh-interactive-cd docker)
@@ -57,7 +59,7 @@ source $HOME/dotfiles/packages/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 
 ######## Remaps ###########
 alias cat="bat"
-alias ls="exa -h -l --icons --git"
+alias ls="eza -h -l --icons --git \$([[ \$PWD == \$HOME/dotfiles ]] && echo "-A" || echo)"
 # Does more intuitive clearing the way CMD-K would
 alias clear="clear && printf \"\e[H\e[2J\e[3J\""
 alias tokei="tokei -n commas"
