@@ -1,2 +1,3 @@
 .config/alacritty/alacritty.toml
 .ssh/config
+packages/wait4exit/wait4exit

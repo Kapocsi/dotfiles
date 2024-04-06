@@ -1,5 +1,5 @@
 [shell]
-program="$TMUX"
+program="$TMUX_PATH"
 args = ["new","-As0"]
 
 [keyboard]
