@@ -17,6 +17,9 @@ _darcs
 ^/packages
 ^/build.sh
 ^/.ssh/config.tmpl
+^/ZSH_CUSTOM
+
+
 
 .+~          # emacs backup files
 \#.*\#       # emacs autosave files
