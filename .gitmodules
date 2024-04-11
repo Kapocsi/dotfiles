@@ -10,3 +10,9 @@
 [submodule "packages/z"]
 	path = packages/z
 	url = https://github.com/rupa/z
+[submodule "ZSH_CUSTOM/plugins/fast-syntax-highlighting"]
+	path = ZSH_CUSTOM/plugins/fast-syntax-highlighting
+	url = https://github.com/zdharma-continuum/fast-syntax-highlighting
+[submodule "ZSH_CUSTOM/plugins/fzf-tab"]
+	path = ZSH_CUSTOM/plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab
