@@ -10,6 +10,7 @@ end
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {
+        "asm_lsp",
         "clangd",
         "eslint",
         "html",
@@ -18,7 +19,6 @@ require('mason-lspconfig').setup({
         "tailwindcss",
         "tsserver",
         "typos_lsp"
-
     },
     handlers = {
         default_setup

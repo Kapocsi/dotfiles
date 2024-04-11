@@ -4,7 +4,9 @@ export ZSH_CUSTOM="$HOME/dotfiles/ZSH_CUSTOM/"
 
 ZSH_THEME="robbyrussell"
 
-plugins=(git thefuck z pip macos gh python rust brew github zsh-interactive-cd docker)
+plugins=(git thefuck z pip macos gh python rust brew github zsh-interactive-cd \
+    docker  fast-syntax-highlighting  fzf-tab \
+    )
 
 
 
@@ -25,13 +27,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     unset __conda_setup
     # <<< conda initialize <<<
 
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    # eval "$(/opt/homebrew/bin/brew shellenv)"
     export MANPATH="/opt/local/share/man:$MANPATH"
     
     alias "chrome"="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
     alias python="python3.12"
     alias code="open -a Visual Studio Code"
-    alias wind="echo \"Killing Windscribe\" && ps aux | grep -oE \"thomaskapocsi +([0-9)]).*(\"Windscribe\")\" | grep -oE \"thomaskapocsi +([0-9]+)\" | grep -oE \"([0-9]+)\" | xargs kill -9 || echo \"Starting WindSribe\" && open -a Windscribe"
+    # alias wind="pkill Windscribe && open -a Windscribe"
 fi
 
 if [[ "$OSTYPE" ==  "linux-gnu" ]]; then 
@@ -55,11 +57,13 @@ alias ins_vpn_disconnect="sudo $HOME/.config/openvpn/vpn_disconnect.sh"
  ### Initialize Z and thefuck ### 
  . ~/dotfiles/packages/z/z.sh
 source $ZSH/oh-my-zsh.sh
-source $HOME/dotfiles/packages/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source $HOME/dotfiles/packages/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+eval "$(fzf --zsh)"
 
 ######## Remaps ###########
 alias cat="bat"
-alias ls="eza -h -l --icons --git \$([[ \$PWD == \$HOME/dotfiles ]] && echo "-A" || echo)"
+alias ls="eza -h -l --icons --git "
 # Does more intuitive clearing the way CMD-K would
 alias clear="clear && printf \"\e[H\e[2J\e[3J\""
 alias tokei="tokei -n commas"
