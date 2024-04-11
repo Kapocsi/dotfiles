@@ -9,12 +9,10 @@ envsubst < $ALACRITTY_CONF_PATH.template > $ALACRITTY_CONF_PATH
 export KEYCHAIN_LINE=$([[ "$OSTYPE" == "darwin"* ]] && echo "UseKeychain yes" || echo "# Removed use keychain for non-mac device ")
 envsubst < ./.ssh/config.tmpl > ./.ssh/config
 
-if [[ ! -f  /usr/local/bin/wait4exit ]]; then
+
+if [ ! -f  /usr/local/bin/wait4exit -a $OSTYPE = "darwin"* ]; then
     echo "Missing Binary File Detected, Installing using :"
     echo "sudo gcc ./packages/wait4exit/wait4exit.c -o /usr/local/bin/wait4exit"
-
-
-    echo "HERE"
 
     echo "exec sudo $0 $@"
    
