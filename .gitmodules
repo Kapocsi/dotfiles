@@ -16,3 +16,6 @@
 [submodule "ZSH_CUSTOM/plugins/fzf-tab"]
 	path = ZSH_CUSTOM/plugins/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
+[submodule "ZSH_CUSTOM/plugins/conda.plugin.zsh"]
+	path = ZSH_CUSTOM/plugins/conda.plugin.zsh
+	url = https://github.com/KellieOwczarczak/conda.plugin.zsh
