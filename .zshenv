@@ -14,3 +14,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
+
+
+
+if (which nvim > /dev/null); then 
+    export EDITOR="nvim"
+else
+    export EDITOR="VIM"
+fi
