@@ -1,6 +1,14 @@
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local default_setup = function(server)
+    require('lspconfig').clangd.setup {
+        capabilities = lsp_capabilities,
+        cmd = {
+            "clangd",
+            "--offset-encoding=utf-16"
+        }
+    }
+
     require('lspconfig')[server].setup({
         capabilities = lsp_capabilities
     })
@@ -32,6 +40,7 @@ local required_formatters = {
     "prettier"
 }
 
+-- Install all missing formatters 
 for _, value in pairs(required_formatters) do
     if not require("mason-registry").is_installed(value) then
         vim.cmd("MasonInstall " .. value)
