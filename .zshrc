@@ -8,8 +8,6 @@ plugins=(git thefuck z pip macos gh python rust brew github zsh-interactive-cd \
     docker  fast-syntax-highlighting  fzf-tab \
     )
 
-
-
 ## Macos Specifics
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # >>> conda initialize >>>
@@ -19,7 +17,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         eval "$__conda_setup"
     else
         if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-            . "/opt/anaconda3/etc/profile.d/conda.sh"
+# . "/opt/anaconda3/etc/profile.d/conda.sh"  # commented out by conda initialize
         else
             export PATH="/opt/anaconda3/bin:$PATH"
         fi
@@ -40,6 +38,8 @@ if [[ "$OSTYPE" ==  "linux-gnu" ]]; then
     # Mimics the pbcopy/pbpaste of macos
     alias pbcopy='xclip -selection clipboard'
     alias pbpaste='xclip -selection clipboard -o'
+
+    eval $(keychain --eval --quiet id_ed25519)
 fi
 
 
