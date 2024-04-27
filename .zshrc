@@ -6,24 +6,10 @@ ZSH_THEME="robbyrussell"
 
 plugins=(git thefuck z pip macos gh python rust brew github zsh-interactive-cd \
     docker  fast-syntax-highlighting  fzf-tab \
-    )
+)
 
 ## Macos Specifics
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # >>> conda initialize >>>
-    # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-    if [ $? -eq 0 ]; then
-        eval "$__conda_setup"
-    else
-        if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-# . "/opt/anaconda3/etc/profile.d/conda.sh"  # commented out by conda initialize
-        else
-            export PATH="/opt/anaconda3/bin:$PATH"
-        fi
-    fi
-    unset __conda_setup
-    # <<< conda initialize <<<
 
     # eval "$(/opt/homebrew/bin/brew shellenv)"
     export MANPATH="/opt/local/share/man:$MANPATH"

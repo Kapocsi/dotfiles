@@ -20,3 +20,5 @@
     colorMoved = default
 [maintenance]
 	repo = /Users/thomaskapocsi/Projects/comp_1633/labs
+[init]
+	defaultBranch = main
