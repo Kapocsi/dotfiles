@@ -32,6 +32,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias python="python3.12"
     alias code="open -a Visual Studio Code"
     # alias wind="pkill Windscribe && open -a Windscribe"
+
+
+
+    export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 fi
 
 if [[ "$OSTYPE" ==  "linux-gnu" ]]; then 
@@ -63,7 +67,7 @@ eval "$(fzf --zsh)"
 
 ######## Remaps ###########
 alias cat="bat"
-alias ls="eza -h -l --icons --git "
+alias ls="eza -h -l --icons --git --no-quotes"
 # Does more intuitive clearing the way CMD-K would
 alias clear="clear && printf \"\e[H\e[2J\e[3J\""
 alias tokei="tokei -n commas"
@@ -74,4 +78,3 @@ alias vim="nvim"
 ######## Helpers ########
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
-

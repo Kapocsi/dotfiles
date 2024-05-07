@@ -6,6 +6,9 @@ path+=("$HOME/.bun")
 path+=("$BUN_INSTALL/bin")
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    # We want to use the brew installation rather than whatever macos is doing
+    alias python3="python"
+
     path+=("/Library/Frameworks/Python.framework/Versions/3.10/bin")
     path+=("/opt/homebrew/opt/mysql-client/bin")
     path+=("/opt/homebrew/opt/postgresql@15/bin")
