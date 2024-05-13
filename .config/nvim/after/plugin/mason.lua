@@ -22,13 +22,12 @@ require('mason-lspconfig').setup({
         "clangd",
         "eslint",
         "html",
-        "jedi_language_server",
         "lua_ls",
-        "pyright",
         "rust_analyzer",
         "tailwindcss",
         "tsserver",
-        "typos_lsp"
+        "typos_lsp",
+        "pylsp"
     },
     handlers = {
         default_setup
