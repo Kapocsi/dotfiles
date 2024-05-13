@@ -30,6 +30,8 @@ if [[ "$OSTYPE" ==  "linux-gnu" ]]; then
     alias pbpaste='xclip -selection clipboard -o'
 
     eval $(keychain --eval --quiet id_ed25519)
+
+    alias open="xdg-open"
 fi
 
 
