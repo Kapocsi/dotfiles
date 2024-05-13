@@ -1,14 +1,22 @@
+export TMUX_PATH=$(which tmux)
+export ALACRITTY_CONF_PATH=./.config/alacritty/alacritty.toml
+
+
+if [[ "$OSTYPE" == "darwin"* ]]; then 
+    export KEYCHAIN_LINE="UseKeychain yes"
+    export FONT_SIZE_LINE="size=15"
+else 
+    
+    export KEYCHAIN_LINE="# Removed use keychain for non-mac device\n"
+fi 
+
+# We want to use a the option UseKeychain yes on Mac  
+envsubst < ./.ssh/config.tmpl > ./.ssh/config
+
 # Create alacritty config, because tmux does not have constant install location 
 # and for some reason I can't get the PATH var to be initialized when tmux is 
 # launched 
-export TMUX_PATH=$(which tmux)
-export ALACRITTY_CONF_PATH=./.config/alacritty/alacritty.toml
 envsubst < $ALACRITTY_CONF_PATH.template > $ALACRITTY_CONF_PATH
-
-# We want to use a the option UseKeychain yes on Mac  
-export KEYCHAIN_LINE=$([[ "$OSTYPE" == "darwin"* ]] && echo "UseKeychain yes" || echo "# Removed use keychain for non-mac device ")
-envsubst < ./.ssh/config.tmpl > ./.ssh/config
-
 
 if [ ! -f  /usr/local/bin/wait4exit -a $OSTYPE = "darwin"* ]; then
     echo "Missing Binary File Detected, Installing using :"
