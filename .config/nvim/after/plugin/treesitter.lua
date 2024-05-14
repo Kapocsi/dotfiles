@@ -1,3 +1,17 @@
+vim.filetype.add({
+    pattern = {
+        ['.*%.tmpl$'] = function(path, bufnr)
+            local base_name = path:match('(.+)%.tmpl$')
+            if base_name then
+                local filetype = vim.filetype.match({
+                    filename = base_name
+                })
+                return filetype
+            end
+        end
+    }
+})
+
 require'nvim-treesitter.configs'.setup {
     ensure_installed = {},
     modules = {},

@@ -1,5 +1,30 @@
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+local util = require("lspconfig/util")
+require("lspconfig.configs").pylyzer = {
+    default_config = {
+        name = "pylyzer",
+        cmd = {
+            "pylyzer",
+            "--server"
+        },
+        filetypes = {
+            "python"
+        },
+        root_dir = function(fname)
+            local root_files = {
+                "pyproject.toml",
+                "setup.py",
+                "setup.cfg",
+                "requirements.txt",
+                "Pipfile"
+            }
+            return util.root_pattern(unpack(root_files))(fname) or
+                       util.find_git_ancestor(fname) or util.path.dirname(fname)
+        end
+    }
+}
+
 local default_setup = function(server)
     require('lspconfig').clangd.setup {
         capabilities = lsp_capabilities,
@@ -18,31 +43,44 @@ end
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {
+        -- Asm lang
         "asm_lsp",
+        -- C/C++
         "clangd",
+        --  
         "eslint",
-        "html",
-        "lua_ls",
-        "rust_analyzer",
-        "tailwindcss",
         "tsserver",
-        "typos_lsp",
-        "pylsp"
+        "html",
+        "tailwindcss",
+        --   
+        "lua_ls",
+        --  
+        "rust_analyzer",
+
+        --  
+        -- "pylsp",
+        -- "pyright",
+        "pylyzer",
+
+        -- Generic
+        "typos_lsp"
     },
     handlers = {
         default_setup
     }
 })
 
-local required_formatters = {
+-- Because ensure_installed does not have support for everything 
+local mason_requires = {
     "black",
     "clang-format",
     "luaformatter",
-    "prettier"
+    "prettier",
+    "mypy"
 }
 
 -- Install all missing formatters 
-for _, value in pairs(required_formatters) do
+for _, value in pairs(mason_requires) do
     if not require("mason-registry").is_installed(value) then
         vim.cmd("MasonInstall " .. value)
     end
