@@ -28,3 +28,27 @@ if [ ! -f  /usr/local/bin/wait4exit -a $OSTYPE = "darwin"* ]; then
     [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
     sudo gcc ./packages/wait4exit/wait4exit.c -o /usr/local/bin/wait4exit
 fi;
+
+# Run stow in simulation mode, this is just meant to show if there are missing 
+# things from the link
+MISSING_LINKS=$(stow -nv .  2>&1 | sed '/WARNING: in simulation mode so not modifying filesystem\./d')
+if (test $(echo $MISSING_LINKS | wc -c) -ne 1 )  
+
+then
+    echo "The Following Symlinks were not found:"
+
+    IFS=$'\n'
+    for l in $MISSING_LINKS 
+    do 
+        printf "\t$l\n"
+    done
+
+    read -p "Do you want me to add them for you? " -n 1 -r
+    echo ""
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        stow . 
+    fi
+
+    echo "Done!"
+fi
