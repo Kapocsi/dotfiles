@@ -12,5 +12,7 @@ return {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-buffer",
     "stevearc/dressing.nvim",
-    "ibhagwan/fzf-lua"
+    "ibhagwan/fzf-lua",
+    "mfussenegger/nvim-lint"
+
 }
