@@ -55,7 +55,7 @@ eval "$(fzf --zsh)"
 
 ######## Remaps ###########
 alias cat="bat"
-alias ls="eza -h -l --icons --git --no-quotes"
+alias ls="eza -h -l --icons --git --no-quotes --group-directories-first"
 # Does more intuitive clearing the way CMD-K would
 alias clear="clear && printf \"\e[H\e[2J\e[3J\""
 alias tokei="tokei -n commas"
