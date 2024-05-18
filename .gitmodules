@@ -1,6 +1,3 @@
-[submodule ".tmux"]
-	path = .tmux
-	url = https://github.com/gpakosz/.tmux.git
 [submodule "packages/ohmyzsh"]
 	path = packages/ohmyzsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
@@ -19,3 +16,6 @@
 [submodule "ZSH_CUSTOM/plugins/conda.plugin.zsh"]
 	path = ZSH_CUSTOM/plugins/conda.plugin.zsh
 	url = https://github.com/KellieOwczarczak/conda.plugin.zsh
+[submodule "packages/tmux"]
+	path = packages/tmux
+	url = https://github.com/gpakosz/.tmux.git
