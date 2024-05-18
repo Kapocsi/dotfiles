@@ -1,5 +1,4 @@
 local wk = require("which-key")
-local telescope = require("telescope.builtin")
 local fzf_lua = require("fzf-lua")
 
 local function is_git_directory()
@@ -11,13 +10,7 @@ local function is_git_directory()
     result = result:gsub('%s+', '')
 
     -- Check the result of the command. If it's 'true', it means we're in a git directory
-    if result == 'true' then
-        print('This is a git directory.')
-        return true
-    else
-        print('This is not a git directory.')
-        return false
-    end
+    return result == 'true'
 end
 
 local function get_git_root()

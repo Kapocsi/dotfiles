@@ -20,5 +20,6 @@ require("lazy").setup("plugins") -- Load Plugins
 require("config.keybinds") -- Load keybinds
 require("config.default_settings"); -- Load Settings
 require("config.autocmd");
+require("config.filetypes")
 
 vim.cmd.colorscheme "catppuccin"
