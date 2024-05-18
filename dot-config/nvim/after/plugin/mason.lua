@@ -25,8 +25,12 @@ require("lspconfig.configs").pylyzer = {
     }
 }
 
+local lspconfig = require("lspconfig");
+
 local default_setup = function(server)
-    require('lspconfig').clangd.setup {
+
+    ---@diagnostic disable: missing-fields
+    lspconfig.clangd.setup {
         capabilities = lsp_capabilities,
         cmd = {
             "clangd",
@@ -34,10 +38,37 @@ local default_setup = function(server)
         }
     }
 
-    require('lspconfig')[server].setup({
+    lspconfig.pyright.setup {
+        settings = {
+            pyright = {
+                autoImportCompletion = true
+            },
+            python = {
+                analysis = {
+                    autoSearchPaths = true,
+                    diagnosticMode = 'openFilesOnly',
+                    useLibraryCodeForTypes = true,
+                    typeCheckingMode = 'off'
+                }
+            }
+
+        }
+    }
+
+    lspconfig.tsserver.setup {
+        init_options = require("nvim-lsp-ts-utils").init_options,
+        on_attach = function(client, bufnr)
+            local ts_utils = require("nvim-lsp-ts-utils")
+            ts_utils.setup({})
+        end
+
+    }
+
+    ---@diagnostic enable: missing-fields
+
+    lspconfig[server].setup({
         capabilities = lsp_capabilities
     })
-
 end
 
 require('mason').setup({})
@@ -59,11 +90,14 @@ require('mason-lspconfig').setup({
 
         --  
         -- "pylsp",
-        -- "pyright",
-        "pylyzer",
+        "pyright",
+        -- "pylyzer",
 
         -- Generic
-        "typos_lsp"
+        "typos_lsp",
+
+        -- Go Lang
+        "gopls"
     },
     handlers = {
         default_setup

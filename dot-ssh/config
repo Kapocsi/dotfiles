@@ -1,0 +1,42 @@
+Host *
+	AddKeysToAgent yes
+	# Removed use keychain for non-mac device\n
+	IdentityFile ~/.ssh/id_ed25519
+	ServerAliveInterval 240
+
+Host github github.com
+    User git
+
+Host dad
+	User georgekapocsi
+	HostName 192.168.0.174
+    ForwardX11 yes
+
+Host anya
+	User enikokapocsi-kiss
+	HostName 192.168.0.146
+
+Match host desktop exec "[[  $(networksetup -getairportnetwork en0 | sed 's/Current Wi-Fi Network: \(.*\)/\1/') == Kapocsiek ]]"
+   HostName thomas-desktop.local 
+Match host desktop 
+    ProxyCommand /opt/homebrew/bin/cloudflared access ssh --hostname ssh.kapocsi.ca
+Host desktop
+    User thomask
+    ForwardX11 yes
+
+Host laptop
+    Hostname thomas-laptop.local
+
+Host ins
+    PermitLocalCommand yes
+    # Create a listener for the the exit of ssh and disconnect the vpn when finished 
+    ## LocalCommand /home/thomask/dotfiles/packages/wait4exit/wait4exit 'sudo /home/thomask/.config/openvpn/vpn_disconnect.sh'
+    # Connect to the vpn before hand
+    ProxyCommand zsh -c "/home/thomask/.config/openvpn/vpn_connect.sh && /usr/bin/nc %h %p"
+    
+    User tkapo261
+    Hostname ins.mtroyal.ca
+
+Host c4
+	User tkapo261
+	Hostname 10.65.255.18
