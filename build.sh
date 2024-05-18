@@ -1,6 +1,8 @@
 export TMUX_PATH=$(which tmux)
-export ALACRITTY_CONF_PATH=./.config/alacritty/alacritty.toml
+export ALACRITTY_CONF_PATH=./dot-config/alacritty/alacritty.toml
 
+## Check tmux compat 
+sort <(echo 3.1; tmux -V | tr -d -c 0-9.) --check 2> /dev/null || echo "Please Update tmux, requires 3.1>="
 
 if [[ "$OSTYPE" == "darwin"* ]]; then 
     export KEYCHAIN_LINE="UseKeychain yes"
@@ -11,12 +13,12 @@ else
 fi 
 
 # We want to use a the option UseKeychain yes on Mac  
-envsubst < ./.ssh/config.tmpl > ./.ssh/config
+envsubst < ./dot-ssh/config.tmpl > ./dot-ssh/config
 
 # Create alacritty config, because tmux does not have constant install location 
 # and for some reason I can't get the PATH var to be initialized when tmux is 
 # launched 
-envsubst < $ALACRITTY_CONF_PATH.template > $ALACRITTY_CONF_PATH
+envsubst < $ALACRITTY_CONF_PATH.tmpl > $ALACRITTY_CONF_PATH
 
 if [ ! -f  /usr/local/bin/wait4exit -a $OSTYPE = "darwin"* ]; then
     echo "Missing Binary File Detected, Installing using :"
@@ -31,7 +33,12 @@ fi;
 
 # Run stow in simulation mode, this is just meant to show if there are missing 
 # things from the link
-MISSING_LINKS=$(stow -nv .  2>&1 | sed '/WARNING: in simulation mode so not modifying filesystem\./d')
+MISSING_LINKS=$(
+    stow -nv --dotfiles .  2>&1  \
+    | sed '/WARNING: in simulation mode so not modifying filesystem\./d'  \
+    | sort 
+)
+
 if (test $(echo $MISSING_LINKS | wc -c) -ne 1 )  
 
 then
@@ -47,8 +54,10 @@ then
     echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-        stow . 
+	    stow --dotfiles . > /dev/null
+	    echo "Done!"
+    else 
+	    echo "Proceeding without links..."
     fi
 
-    echo "Done!"
 fi

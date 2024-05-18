@@ -66,3 +66,11 @@ alias vim="nvim"
 ######## Helpers ########
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
+
+# pnpm
+export PNPM_HOME="/home/thomask/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

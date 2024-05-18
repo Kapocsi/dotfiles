@@ -11,12 +11,15 @@ CVS
 _darcs
 \.hg
 
+
 \.git
 \.gitignore
 \.gitmodules
+
+# Used internally for managing files
 ^/packages
 ^/build.sh
-^/.ssh/config.tmpl
+^/.+\.tmpl
 ^/ZSH_CUSTOM
 
 

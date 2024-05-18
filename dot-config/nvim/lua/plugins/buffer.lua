@@ -17,5 +17,6 @@ return {
             'nvim-telescope/telescope.nvim'
         },
         cmd = 'Nerdy'
-    }
+    },
+    "jose-elias-alvarez/nvim-lsp-ts-utils"
 }

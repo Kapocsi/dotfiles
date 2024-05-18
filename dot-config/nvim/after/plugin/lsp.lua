@@ -68,6 +68,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 a = {
                     function() vim.lsp.buf.code_action() end,
                     'Code Action'
+                },
+                d = {
+                    function() vim.diagnostic.open_float() end,
+                    "View Diagnostic"
                 }
             }
 
