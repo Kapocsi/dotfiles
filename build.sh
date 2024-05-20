@@ -1,3 +1,5 @@
+#! /bin/bash
+
 export TMUX_PATH=$(which tmux)
 export ALACRITTY_CONF_PATH=./dot-config/alacritty/alacritty.toml
 
@@ -20,7 +22,7 @@ envsubst < ./dot-ssh/config.tmpl > ./dot-ssh/config
 # launched 
 envsubst < $ALACRITTY_CONF_PATH.tmpl > $ALACRITTY_CONF_PATH
 
-if [ ! -f  /usr/local/bin/wait4exit -a $OSTYPE = "darwin"* ]; then
+if [ ! -f  /usr/local/bin/wait4exit -a $OSTYPE = "darwin\*" ]; then
     echo "Missing Binary File Detected, Installing using :"
     echo "sudo gcc ./packages/wait4exit/wait4exit.c -o /usr/local/bin/wait4exit"
 
