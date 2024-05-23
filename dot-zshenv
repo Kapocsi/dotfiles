@@ -4,6 +4,7 @@ path+=("$HOME/.oh-my-zsh")
 path+=("$HOME/.cargo/bin")
 path+=("$HOME/.bun")
 path+=("$BUN_INSTALL/bin")
+path+=("$HOME/.local/bin")
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # We want to use the brew installation rather than whatever macos is doing
