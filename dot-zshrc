@@ -5,33 +5,35 @@ export ZSH_CUSTOM="$HOME/dotfiles/ZSH_CUSTOM/"
 ZSH_THEME="robbyrussell"
 
 plugins=(git thefuck z pip macos gh python rust brew github zsh-interactive-cd \
-    docker  fast-syntax-highlighting  fzf-tab \
+	docker fast-syntax-highlighting fzf-tab zsh-vi-mode \
 )
+
+
 
 ## Macos Specifics
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
-    # eval "$(/opt/homebrew/bin/brew shellenv)"
-    export MANPATH="/opt/local/share/man:$MANPATH"
-    
-    alias "chrome"="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-    alias python="python3.12"
-    alias code="open -a Visual Studio Code"
-    # alias wind="pkill Windscribe && open -a Windscribe"
+# eval "$(/opt/homebrew/bin/brew shellenv)"
+export MANPATH="/opt/local/share/man:$MANPATH"
+
+alias "chrome"="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+alias python="python3.12"
+alias code="open -a Visual Studio Code"
+# alias wind="pkill Windscribe && open -a Windscribe"
 
 
 
-    export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 fi
 
 if [[ "$OSTYPE" ==  "linux-gnu" ]]; then 
-    # Mimics the pbcopy/pbpaste of macos
-    alias pbcopy='xclip -selection clipboard'
-    alias pbpaste='xclip -selection clipboard -o'
+	# Mimics the pbcopy/pbpaste of macos
+	alias pbcopy='xclip -selection clipboard'
+	alias pbpaste='xclip -selection clipboard -o'
 
-    eval $(keychain --eval --quiet id_ed25519)
+	eval $(keychain --eval --quiet id_ed25519)
 
-    alias open="xdg-open"
+	alias open="xdg-open"
 fi
 
 
@@ -39,19 +41,24 @@ alias ins_vpn_connect="sudo $HOME/.config/openvpn/vpn_connect.sh"
 alias ins_vpn_disconnect="sudo $HOME/.config/openvpn/vpn_disconnect.sh"
 
 
- # if [[ -n $SSH_CONNECTION ]]; then
- #   export EDITOR='vim'
- # else
- #   export EDITOR='nvim'
- # fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='nvim'
+# fi
 
 
- ### Initialize Z and thefuck ### 
- . ~/dotfiles/packages/z/z.sh
+### Initialize Z and thefuck ### 
+. ~/dotfiles/packages/z/z.sh
 source $ZSH/oh-my-zsh.sh
 # source $HOME/dotfiles/packages/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-eval "$(fzf --zsh)"
+# Initialize fzf integration after the start of the vim-mode plugin, without 
+# this most of the fzf func only works in "normal" mode
+function zvm_after_init() {
+	eval "$(fzf --zsh)"
+}
+
 
 ######## Remaps ###########
 alias cat="bat"
@@ -70,7 +77,7 @@ alias localip="ipconfig getifaddr en0"
 # pnpm
 export PNPM_HOME="/home/thomask/.local/share/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+	*":$PNPM_HOME:"*) ;;
+	*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
