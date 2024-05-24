@@ -13,6 +13,10 @@ return {
     "hrsh7th/cmp-buffer",
     "stevearc/dressing.nvim",
     "ibhagwan/fzf-lua",
-    "mfussenegger/nvim-lint"
+    "mfussenegger/nvim-lint",
+    {
+        "FabijanZulj/blame.nvim",
+        config = function() require("blame").setup() end
+    }
 
 }
