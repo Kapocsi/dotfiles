@@ -1,5 +1,6 @@
 local wk = require("which-key")
 local fzf_lua = require("fzf-lua")
+local comments = require("Comment.api")
 
 local function is_git_directory()
     -- Use Neovim's vim.fn.system to execute the git command
@@ -101,8 +102,7 @@ wk.register({
     },
     ["/"] = {
         function()
-            require("Comment.api").toggle.linewise.count(vim.v.count > 0 and
-                                                             vim.v.count or 1)
+            comments.toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
         end,
         "Comment Line"
     }
@@ -137,3 +137,10 @@ wk.register({
 }, {
     mode = "v"
 })
+
+wk.register {
+    ["z="] = {
+        fzf_lua.spell_suggest,
+        "Fix Spelling"
+    }
+}

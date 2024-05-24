@@ -1,4 +1,5 @@
 require("luasnip.loaders.from_vscode").lazy_load()
+local fzf_lua = require("fzf-lua")
 
 vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
 vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
@@ -13,16 +14,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
             buffer = bufnr
         }
 
-        require"which-key".register({
-            ["la"] = {
-                function() vim.lsp.buf.code_action() end,
-                'Code Action'
-            }
-        }, {
-            prefix = "<leader>",
-            mode = "v"
-        });
-
         require("which-key").register({
             ['K'] = {
                 function() vim.lsp.buf.hover() end,
@@ -30,47 +21,45 @@ vim.api.nvim_create_autocmd('LspAttach', {
             },
             ["g"] = {
                 d = {
-                    function() vim.lsp.buf.definition() end,
+                    fzf_lua.lsp_definitions,
                     'Jump Definition'
                 },
                 D = {
-                    function() vim.lsp.buf.declaration() end,
+                    fzf_lua.lsp_declarations,
                     'Jump Declaration'
                 },
                 u = {
-                    require("fzf-lua").lsp_incoming_calls,
+                    fzf_lua.lsp_incoming_calls,
                     "View Usages"
-
                 },
                 i = {
-                    function() vim.lsp.buf.implementation() end,
+                    fzf_lua.lsp_implementations,
                     'View Implementation'
                 },
                 o = {
-                    function() vim.lsp.buf.type_definition() end,
+                    fzf_lua.type_definitions,
                     'Jump Type Definition'
                 },
                 r = {
-                    require("fzf-lua").lsp_references,
-
+                    fzf_lua.lsp_references,
                     'View References'
                 },
                 s = {
-                    function() vim.lsp.buf.signature_help() end,
+                    vim.lsp.buf.signature_help,
                     'Signature Help'
                 }
             },
             ["<leader>l"] = {
                 r = {
-                    function() vim.lsp.buf.rename() end,
+                    vim.lsp.buf.rename,
                     'Rename'
                 },
                 a = {
-                    function() vim.lsp.buf.code_action() end,
+                    fzf_lua.lsp_code_actions,
                     'Code Action'
                 },
                 d = {
-                    function() vim.diagnostic.open_float() end,
+                    vim.diagnostic.open_float,
                     "View Diagnostic"
                 }
             }
