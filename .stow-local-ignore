@@ -20,8 +20,8 @@ _darcs
 ^/packages
 ^/build.sh
 ^/.+\.tmpl
-^/ZSH_CUSTOM
-
+^/zfunc
+^/ZSH
 
 
 .+~          # emacs backup files
