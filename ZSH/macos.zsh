@@ -2,6 +2,9 @@ if [[ "$OSTYPE" != "darwin" ]] then
     return 
 fi
 
+zi ice svn
+zi snippet OMZP::macos 
+
 export MANPATH="/opt/local/share/man:$MANPATH"
 
 alias "chrome"="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
