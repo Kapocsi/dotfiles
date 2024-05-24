@@ -21,9 +21,6 @@ do
     zi snippet "$s"
 done
 
-if [[ "$OSTYPE" == "darwin"* ]] then
-    zi snippet OMZP::macos 
-fi
 
 for p in \
     zsh-users/zsh-syntax-highlighting \
