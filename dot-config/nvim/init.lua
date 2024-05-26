@@ -16,9 +16,9 @@ vim.opt.rtp:prepend(lazypath)
 vim.loader.enable()
 vim.g.mapleader = " "
 
+require("config.default_settings"); -- Load Settings
 require("lazy").setup("plugins") -- Load Plugins
 require("config.keybinds") -- Load keybinds
-require("config.default_settings"); -- Load Settings
 require("config.autocmd");
 
 vim.cmd.colorscheme "catppuccin"
