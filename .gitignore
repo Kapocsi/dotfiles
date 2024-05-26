@@ -4,3 +4,4 @@ packages/wait4exit/wait4exit
 **/__pycache__
 dot-config/alacritty/alacritty.toml
 dot-ssh/config
+dot-config/tmux/plugins
