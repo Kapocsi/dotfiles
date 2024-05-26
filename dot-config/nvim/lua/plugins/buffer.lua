@@ -1,12 +1,8 @@
 return {
-    "rafamadriz/friendly-snippets",
     "mhartington/formatter.nvim",
     {
         "L3MON4D3/LuaSnip",
-        build = "make install_jsregexp",
-        dependencies = {
-            "rafamadriz/friendly-snippets"
-        }
+        build = "make install_jsregexp"
     },
     "nvim-treesitter/nvim-treesitter",
     --- Make nerdfonts easier to type
