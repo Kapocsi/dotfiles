@@ -1,10 +1,10 @@
 return {
     "andweeb/presence.nvim",
-
     "xiyaowong/transparent.nvim",
     "JoosepAlviste/nvim-ts-context-commentstring",
     "numToStr/Comment.nvim",
     "windwp/nvim-ts-autotag",
+    "mbbill/undotree",
     {
         'altermo/ultimate-autopair.nvim',
         event = {
@@ -16,13 +16,11 @@ return {
             -- Config goes here
         }
     },
-
     {
         "folke/neoconf.nvim",
-        cmd = "Neoconf"
+        cmd = "Neoconf",
+        config = function() require'neoconf'.setup() end
     },
-    "mbbill/undotree",
-    "nvim-treesitter/nvim-treesitter",
     {
         'nvimdev/dashboard-nvim',
         event = 'VimEnter',
