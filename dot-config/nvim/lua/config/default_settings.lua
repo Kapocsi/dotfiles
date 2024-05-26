@@ -25,3 +25,9 @@ vim.opt.wrap = false;
 vim.opt.tabstop = 4;
 vim.opt.shiftwidth = 4;
 vim.opt.expandtab = true;
+
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
+
+-- Fix colorizer issue 
+vim.opt.termguicolors = true

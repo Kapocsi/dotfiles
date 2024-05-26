@@ -18,5 +18,10 @@ return {
         },
         cmd = 'Nerdy'
     },
-    "jose-elias-alvarez/nvim-lsp-ts-utils"
+    "jose-elias-alvarez/nvim-lsp-ts-utils",
+    {
+        "norcalli/nvim-colorizer.lua",
+        config = function() require"colorizer".setup() end
+    }
+
 }
