@@ -4,7 +4,7 @@ path+=("$HOME/.cargo/bin")
 path+=("$HOME/.bun")
 path+=("$BUN_INSTALL/bin")
 path+=("$HOME/.local/bin")
-
+path+=("$HOME/dotfiles/dot-config/tmux/plugins/tmux-session-wizard/bin")
 
 fpath+="$HOME/dotfiles/zfunc"
 

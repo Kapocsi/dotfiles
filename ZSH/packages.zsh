@@ -15,7 +15,7 @@ zinit light g-plane/pnpm-shell-completion
 
 for s in \
     OMZL::{functions.zsh,clipboard.zsh,termsupport.zsh} \
-    OMZP::{git,pip,python,github,thefuck,z,brew}
+    OMZP::{git,pip,python,github,thefuck,brew}
     ;
 do
     zi snippet "$s"
@@ -49,5 +49,6 @@ export function zvm_after_init() {
     eval "$(fzf --zsh)"
 }
 
+eval "$(zoxide init zsh)"
 
-. ~/dotfiles/packages/z/z.sh
+
