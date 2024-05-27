@@ -8,6 +8,7 @@ source "$SRC/macos.zsh"
 source "$SRC/linux.zsh"
 
 
+
 ######## Remaps ###########
 alias cat="bat"
 alias ls="eza -h -l --icons --git --no-quotes --group-directories-first"
@@ -22,5 +23,4 @@ alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 alias ins_vpn_connect="sudo $HOME/.config/openvpn/vpn_connect.sh"
 alias ins_vpn_disconnect="sudo $HOME/.config/openvpn/vpn_disconnect.sh"
-
 

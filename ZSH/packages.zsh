@@ -27,7 +27,8 @@ for p in \
     Aloxaf/fzf-tab \
     zsh-users/zsh-completions \
     jeffreytse/zsh-vi-mode \
-    g-plane/pnpm-shell-completion
+    g-plane/pnpm-shell-completion \
+    hsaunders1904/pyautoenv
     ;
 do
     zinit light "$p"

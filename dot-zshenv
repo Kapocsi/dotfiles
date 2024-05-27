@@ -16,7 +16,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	path+=("/opt/homebrew/opt/mysql-client/bin")
 	path+=("/opt/homebrew/opt/postgresql@15/bin")
 	path+=("/opt/local/bin")
-	path+=("/opt/local/sbin")
+path+=("/opt/local/sbin")
 
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi

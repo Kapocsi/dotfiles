@@ -1,0 +1,6 @@
+"playerctl play-pause"
+    XF86AudioPlay
+
+# Cause my headphones alternate better play and pause
+"playerctl pause"
+    XF86AudioPause

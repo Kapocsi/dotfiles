@@ -1,8 +1,13 @@
 vim.filetype.add({
     pattern = {
+        [".*"] = function(path)
+            if path:match("(.*zfunc/.*)") then return "sh" end
+        end,
+
         -- Use the correct syntax highlighting for the ssh config template, 
         -- this is stupid but I can't seem to match using the files "path"
         ["dot%-ssh/config%.tmpl"] = "ssh_config",
+
         -- Try to match using a file without the .tmpl extension
         ['.*tmpl'] = function(path)
             local base_name = path:match('.*/(.+)%.tmpl$')
@@ -15,7 +20,10 @@ vim.filetype.add({
         end,
         -- Explicit override for the dot-zsh files, these don't match because a 
         -- literal "." is expected instead 
-        ["dot%-zsh.*"] = "zsh"
+        ["dot%-zsh.*"] = "zsh",
+
+        [".zsh.*"] = "sh"
+
     }
 })
 

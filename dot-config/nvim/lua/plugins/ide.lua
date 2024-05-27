@@ -1,7 +1,6 @@
 return {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/nvim-cmp",
     'VonHeikemen/lsp-zero.nvim',
@@ -15,6 +14,9 @@ return {
     {
         "FabijanZulj/blame.nvim",
         config = function() require("blame").setup() end
+    },
+    {
+        "neovim/nvim-lspconfig"
     }
 
 }
