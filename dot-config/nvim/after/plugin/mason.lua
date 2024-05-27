@@ -97,7 +97,10 @@ require('mason-lspconfig').setup({
         "typos_lsp",
 
         -- Go Lang
-        "gopls"
+        "gopls",
+
+        -- Bash Lsp
+        "bashls"
     },
     handlers = {
         default_setup
@@ -110,7 +113,8 @@ local mason_requires = {
     "clang-format",
     "luaformatter",
     "prettier",
-    "mypy"
+    "mypy",
+    "beautysh"
 }
 
 -- Install all missing formatters 

@@ -34,7 +34,10 @@ require("formatter").setup {
         markdown = formatters.prettier,
         graphql = formatters.prettier,
         vue = formatters.prettier,
-        svelte = formatters.prettier
+        svelte = formatters.prettier,
+
+        sh = formatters.beautysh,
+        zsh = formatters.beautysh
 
     }
 }

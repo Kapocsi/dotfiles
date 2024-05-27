@@ -22,6 +22,7 @@ _darcs
 ^/.+\.tmpl
 ^/zfunc
 ^/ZSH
+^/global-git-ignore
 
 
 .+~          # emacs backup files
