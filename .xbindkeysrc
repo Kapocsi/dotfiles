@@ -4,3 +4,10 @@
 # Cause my headphones alternate better play and pause
 "playerctl pause"
     XF86AudioPause
+
+"playerctl next"
+    XF86AudioNext
+
+"playerctl previous"
+    XF86AudioPrev
+

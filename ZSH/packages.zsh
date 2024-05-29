@@ -52,4 +52,5 @@ export function zvm_after_init() {
 
 eval "$(zoxide init zsh)"
 
-
+autoload -Uz manydots-magic
+manydots-magic
