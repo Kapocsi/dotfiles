@@ -1,0 +1,5 @@
+XTerm*renderFont: true
+XTerm*faceName: JetBrainsMono Nerd Font
+XTerm*faceSize: 10
+xterm*background: black
+xterm*foreground: white
