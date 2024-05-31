@@ -1,9 +1,4 @@
 return {
-    {
-        'nvimdev/dashboard-nvim',
-        config = function() require('dashboard').setup {} end,
-        lazy = false
-    },
     "folke/which-key.nvim",
     {
         "nvim-neo-tree/neo-tree.nvim",

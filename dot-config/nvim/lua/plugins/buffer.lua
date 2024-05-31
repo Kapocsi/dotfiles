@@ -18,6 +18,17 @@ return {
     {
         "norcalli/nvim-colorizer.lua",
         config = function() require"colorizer".setup() end
+    },
+    {
+        'ruifm/gitlinker.nvim',
+        dependencies = {
+            'nvim-lua/plenary.nvim'
+
+        },
+
+	config = function()
+		require"gitlinker".setup()
+	end
     }
 
 }

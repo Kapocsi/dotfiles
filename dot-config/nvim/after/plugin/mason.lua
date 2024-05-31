@@ -83,6 +83,7 @@ require('mason-lspconfig').setup({
         "tsserver",
         "html",
         "tailwindcss",
+        "jsonls",
         --   
         "lua_ls",
         --  
