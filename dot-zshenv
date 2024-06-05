@@ -9,14 +9,11 @@ path+=("$HOME/dotfiles/dot-config/tmux/plugins/tmux-session-wizard/bin")
 fpath+="$HOME/dotfiles/zfunc"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-	# We want to use the brew installation rather than whatever macos is doing
-	alias python3="python"
-
-	path+=("/Library/Frameworks/Python.framework/Versions/3.10/bin")
-	path+=("/opt/homebrew/opt/mysql-client/bin")
-	path+=("/opt/homebrew/opt/postgresql@15/bin")
-	path+=("/opt/local/bin")
-path+=("/opt/local/sbin")
+    path+=("/Library/Frameworks/Python.framework/Versions/3.10/bin")
+    path+=("/opt/homebrew/opt/mysql-client/bin")
+    path+=("/opt/homebrew/opt/postgresql@15/bin")
+    path+=("/opt/local/bin")
+    path+=("/opt/local/sbin")
 
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi

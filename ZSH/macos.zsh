@@ -1,9 +1,7 @@
-if [[ "$OSTYPE" != "darwin" ]] then 
+if [[ "$OSTYPE" != "darwin"* ]] then 
     return 
 fi
 
-zi ice svn
-zi snippet OMZP::macos 
 
 export MANPATH="/opt/local/share/man:$MANPATH"
 
