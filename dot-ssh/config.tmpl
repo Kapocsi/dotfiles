@@ -15,7 +15,7 @@ Host anya
 	User enikokapocsi-kiss
 	HostName 192.168.0.146
 
-Match host desktop exec "[[ $(ping -c 1 -t 1 thomas-laptop.local)  ]]"
+Match host desktop exec "[[ $(ping -c 1 -t 1 thomas-desktop.local)  ]]"
    HostName thomas-desktop.local 
 Match host desktop 
     ProxyCommand /opt/homebrew/bin/cloudflared access ssh --hostname ssh.kapocsi.ca
