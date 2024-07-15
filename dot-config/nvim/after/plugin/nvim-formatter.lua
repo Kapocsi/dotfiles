@@ -11,10 +11,21 @@ local lua_format = function()
     }
 end
 
+local tex_formatter = function()
+    return {
+        exe = "latexindent",
+        stdin = true
+
+    }
+end
+
 require("formatter").setup {
     logging = true,
     log_level = vim.log.levels.WARN,
     filetype = {
+        tex = tex_formatter,
+        latex = tex_formatter,
+
         lua = lua_format,
         rust = require("formatter.filetypes.rust").rustfmt,
         cpp = require("formatter.filetypes.cpp").clangformat,

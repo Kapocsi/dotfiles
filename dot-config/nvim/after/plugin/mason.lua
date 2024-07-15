@@ -101,7 +101,10 @@ require('mason-lspconfig').setup({
         "gopls",
 
         -- Bash Lsp
-        "bashls"
+        "bashls",
+
+        -- Markdown
+        "marksman"
     },
     handlers = {
         default_setup
