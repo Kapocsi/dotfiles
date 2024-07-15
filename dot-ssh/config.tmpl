@@ -15,7 +15,7 @@ Host anya
 	User enikokapocsi-kiss
 	HostName 192.168.0.146
 
-Match host desktop exec "[[  $(networksetup -getairportnetwork en0 | sed 's/Current Wi-Fi Network: \(.*\)/\1/') == Kapocsiek ]]"
+Match host desktop exec "[[ $(ping -c 1 -t 1 thomas-laptop.local)  ]]"
    HostName thomas-desktop.local 
 Match host desktop 
     ProxyCommand /opt/homebrew/bin/cloudflared access ssh --hostname ssh.kapocsi.ca

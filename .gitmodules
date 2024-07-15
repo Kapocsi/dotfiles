@@ -28,3 +28,6 @@
 [submodule "packages/zsh-manydots-magic"]
 	path = packages/zsh-manydots-magic
 	url = https://github.com/knu/zsh-manydots-magic
+[submodule "dot-config/tmux/plugins/tpm"]
+	path = dot-config/tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
