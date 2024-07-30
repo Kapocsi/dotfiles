@@ -36,5 +36,7 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+export PYTHONBREAKPOINT="IPython.embed"
+
 
 cd .

@@ -6,7 +6,9 @@ zi light romkatv/gitstatus
 
 setopt prompt_subst
 b='%F{blue}'
+if [[ "$OSTYPE" != "darwin"* ]] then 
 fire='$(firejail --list > /dev/null 2>/dev/null || echo "󰒄")'
+fi
 hostname='%F{196}$([ ! -z $SSH_TTY ] && printf "󰴽 $HOST" ) %f'
 git_status='$([ ! -z "${GITSTATUS_PROMPT}" ] && echo "(${GITSTATUS_PROMPT}%39F)%f" )'
 current_dir='%1~'

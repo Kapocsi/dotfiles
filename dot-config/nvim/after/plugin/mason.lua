@@ -56,7 +56,7 @@ local default_setup = function(server)
                     autoSearchPaths = true,
                     diagnosticMode = 'openFilesOnly',
                     useLibraryCodeForTypes = true,
-                    typeCheckingMode = 'off'
+                    typeCheckingMode = 'basic'
                 }
             }
 
@@ -99,9 +99,9 @@ require('mason-lspconfig').setup({
 
         --  
         -- "pylsp",
-        "pylsp",
-        "jedi_language_server",
-        "ruff",
+        "pyright",
+        -- "basedpyright",
+        -- "pylyzer",
 
         -- Generic
         "typos_lsp",
@@ -129,12 +129,12 @@ local mason_requires = {
     "clang-format",
     "luaformatter",
     "prettier",
-    "mypy",
+    -- "mypy",
     "beautysh"
 }
 
--- Install all missing formatters 
 for _, value in pairs(mason_requires) do
+
     if not require("mason-registry").is_installed(value) then
         vim.cmd("MasonInstall " .. value)
     end
