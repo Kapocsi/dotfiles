@@ -9,7 +9,8 @@ fi
 
 source "${ZINIT_HOME}/zinit.zsh"
 
-autoload -U compinit && compinit
+autoload -Uz compinit && compinit
+autoload bashcompinit && bashcompinit
 zinit ice atload"zpcdreplay" atclone"./zplug.zsh" atpull"%atclone"
 zinit light g-plane/pnpm-shell-completion
 
@@ -54,3 +55,5 @@ eval "$(zoxide init zsh)"
 
 autoload -Uz manydots-magic
 manydots-magic
+
+complete -C $(which aws_completer) aws
