@@ -10,7 +10,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export KEYCHAIN_LINE="UseKeychain yes"
     export FONT_SIZE_LINE="size=15"
 else 
-    
+    export FONT_SIZE_LINE="size=12"
     export KEYCHAIN_LINE="# Removed use keychain for non-mac device\n"
 fi 
 
