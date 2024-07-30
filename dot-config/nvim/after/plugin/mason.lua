@@ -1,29 +1,37 @@
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local util = require("lspconfig/util")
-require("lspconfig.configs").pylyzer = {
-    default_config = {
-        name = "pylyzer",
-        cmd = {
-            "pylyzer",
-            "--server"
-        },
-        filetypes = {
-            "python"
-        },
-        root_dir = function(fname)
-            local root_files = {
-                "pyproject.toml",
-                "setup.py",
-                "setup.cfg",
-                "requirements.txt",
-                "Pipfile"
-            }
-            return util.root_pattern(unpack(root_files))(fname) or
-                       util.find_git_ancestor(fname) or util.path.dirname(fname)
-        end
-    }
+require'lspconfig'.sqlls.setup {
+    capabilities = lsp_capabilities,
+    filetypes = {
+        'sql'
+    },
+    root_dir = function(_) return vim.loop.cwd() end
 }
+
+-- local util = require("lspconfig/util")
+-- require("lspconfig.configs").pylyzer = {
+--     default_config = {
+--         name = "pylyzer",
+--         cmd = {
+--             "pylyzer",
+--             "--server"
+--         },
+--         filetypes = {
+--             "python"
+--         },
+--         root_dir = function(fname)
+--             local root_files = {
+--                 "pyproject.toml",
+--                 "setup.py",
+--                 "setup.cfg",
+--                 "requirements.txt",
+--                 "Pipfile"
+--             }
+--             return util.root_pattern(unpack(root_files))(fname) or
+--                        util.find_git_ancestor(fname) or util.path.dirname(fname)
+--         end
+--     }
+-- }
 
 local lspconfig = require("lspconfig");
 
@@ -91,8 +99,9 @@ require('mason-lspconfig').setup({
 
         --  
         -- "pylsp",
-        "pyright",
-        -- "pylyzer",
+        "pylsp",
+        "jedi_language_server",
+        "ruff",
 
         -- Generic
         "typos_lsp",
@@ -104,7 +113,10 @@ require('mason-lspconfig').setup({
         "bashls",
 
         -- Markdown
-        "marksman"
+        "marksman",
+
+        -- SQL
+        "sqlls"
     },
     handlers = {
         default_setup
