@@ -21,10 +21,12 @@ Match host desktop
     ProxyCommand /opt/homebrew/bin/cloudflared access ssh --hostname ssh.kapocsi.ca
 Host desktop
     User thomask
+    ForwardAgent yes
     ForwardX11 yes
 
 Host laptop
     Hostname thomas-laptop.local
+    ForwardAgent yes
 
 Host ins
     PermitLocalCommand yes
