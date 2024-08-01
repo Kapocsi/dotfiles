@@ -10,7 +10,4 @@ if firejail --list 2> /dev/null > /dev/null; then;
     eval $(keychain --agents ssh --eval --quiet)
 fi
 
-export BROWSER=$(which brave)
-
-
 alias open="xdg-open"
