@@ -51,26 +51,12 @@ wk.register({
 wk.register({
     f = {
         name = "find", -- optional group name
-        F = {
+        f = {
             function()
                 fzf_lua.files {
                     cwd = cwd_get() -- Traverse to the root of the project if needed
 
                 }
-            end,
-            "Find File"
-        },
-        f = {
-            function()
-                if (is_git_directory()) then
-                    fzf_lua.git_files({
-                        cwd = cwd_get()
-                    })
-                else
-                    fzf_lua.files({
-                        cwd = cwd_get()
-                    })
-                end
             end,
             "Find File"
         },
