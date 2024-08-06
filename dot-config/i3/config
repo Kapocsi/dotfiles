@@ -36,7 +36,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- playerctl pause && xsecur
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
-exec_always --no-startup-id picom # --backend glx
+exec_always --no-startup-id picom --backend glx
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -158,7 +158,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+w exec playerctl pause |& xsecurelock 
+bindsym $mod+Shift+w exec playerctl pause |&  XSECURELOCK_PAM_SERVICE=xsecurelock xsecurelock 
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
