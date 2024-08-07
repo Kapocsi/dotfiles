@@ -38,5 +38,7 @@ esac
 
 export PYTHONBREAKPOINT="IPython.embed"
 
+# As per https://github.com/keybase/keybase-issues/issues/2798
+export GPG_TTY=$(tty)
 
 cd .

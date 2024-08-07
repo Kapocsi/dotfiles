@@ -2,8 +2,6 @@ if [[ "$OSTYPE" !=  "linux-gnu" ]]; then
     return 
 fi
 
-# As per https://github.com/keybase/keybase-issues/issues/2798
-export GPG_TTY=$(tty)
 
 # Mimics the pbcopy/pbpaste of macos
 alias pbcopy='xclip -selection clipboard'
