@@ -1,5 +1,7 @@
 # Dot files
 
+random change
+
 It means it will be used with GNU Stow to manage dotfiles across my systems.
 Or other files I need across everything
 
