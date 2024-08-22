@@ -11,38 +11,21 @@ source "${ZINIT_HOME}/zinit.zsh"
 
 autoload -Uz compinit && compinit
 autoload bashcompinit && bashcompinit
+
 zinit ice atload"zpcdreplay" atclone"./zplug.zsh" atpull"%atclone"
 zinit light g-plane/pnpm-shell-completion
 
-for s in \
-    OMZL::{functions.zsh,clipboard.zsh,termsupport.zsh} \
-    OMZP::{git,pip,python,github,thefuck,brew}
-    ;
-do
-    zi snippet "$s"
-done
 
 
 for p in \
-    zsh-users/zsh-syntax-highlighting \
     Aloxaf/fzf-tab \
-    zsh-users/zsh-completions \
     jeffreytse/zsh-vi-mode \
-    g-plane/pnpm-shell-completion \
-    hsaunders1904/pyautoenv
+    z-shell/F-Sy-H \
     ;
 do
     zinit light "$p"
 done
 
-for p in \
-    gh\
-    docker 
-    ;
-do
-    zi ice as"completion"
-    zi snippet OMZP::$p
-done
 
 
 # Initialize fzf integration after the start of the vim-mode plugin, without 

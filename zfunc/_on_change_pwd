@@ -1,0 +1,17 @@
+function _on_change_pwd() {
+    if [[ -v IN_VENV ]]; then
+        return
+    fi
+
+    # Auto setup .venv files
+    local dir=$(git rev-parse --show-toplevel 2>/dev/null || echo $PWD)
+
+    if [[ ! -v IN_VENV && -d $dir/.venv  ]] then 
+        source $dir/.venv/bin/activate 
+        _IN_VENV=
+    elif 
+    [[ $(type deactivate) == "deactivate is a shell function"* ]] then
+        deactivate
+        unset _IN_VENV
+    fi
+}

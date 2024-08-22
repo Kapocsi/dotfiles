@@ -5,8 +5,6 @@
 
 [core]
     pager = delta
-    # Allow for certain files to be ignored globally
-	excludesfile = /home/thomask/dotfiles/global-git-ignore
 
 [interactive]
     diffFilter = delta --color-only 
@@ -27,4 +25,6 @@
 [push]
 	autoSetupRemote = true
 [commit]
-	gpgsign = true
+    gpgsign = true
+
+

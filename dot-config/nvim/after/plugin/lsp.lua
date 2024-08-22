@@ -1,4 +1,3 @@
-require("luasnip.loaders.from_vscode").lazy_load()
 local fzf_lua = require("fzf-lua")
 
 vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
