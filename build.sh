@@ -1,5 +1,33 @@
 #! /bin/bash
 
+function verify_history() {
+    git log --format="%H" | xargs -P0 -I {} sh -c 'git verify-commit {} 2> /dev/null || (echo "Could not verify {}" && exit 1)'
+}
+
+if ! verify_history 
+then
+    printf "Failed To Verify Commit History.\n" 
+    printf "Refusing To Continue. \n\n\n"
+
+    ## Find last trusted commit
+    git log --format="%H" \
+        | xargs -P0 -I {} sh -c 'git verify-commit {} 2> /dev/null && echo {}' 2>/dev/null \
+        | head -n1 \
+        | xargs git checkout >/dev/null 2>/dev/null
+
+
+    printf "Checked out last trusted commit, please verify all changes.\n"\
+            "And ensure that there are no malicious changes"
+
+    echo "The Following Files Should be checked:"
+
+    git diff --name-only main
+
+    exit 1
+fi
+    
+
+
 export TMUX_PATH=$(which tmux)
 export ALACRITTY_CONF_PATH=./dot-config/alacritty/alacritty.toml
 
