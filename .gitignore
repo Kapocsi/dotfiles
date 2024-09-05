@@ -5,3 +5,5 @@ packages/wait4exit/wait4exit
 dot-config/alacritty/alacritty.toml
 dot-ssh/config
 dot-config/tmux/plugins
+dot-config/openvpn
+dot-config/openvpn.tar

@@ -23,6 +23,7 @@ _darcs
 ^/zfunc
 ^/ZSH
 ^/global-git-ignore
+^/.config/openvpn.tar(.gpg)?
 
 
 .+~          # emacs backup files
