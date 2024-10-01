@@ -38,7 +38,7 @@ local default_setup = function(server)
 		},
 	})
 
-	lspconfig.tsserver.setup({
+	lspconfig.ts_ls.setup({
 		init_options = require("nvim-lsp-ts-utils").init_options,
 		on_attach = function(client, bufnr)
 			local ts_utils = require("nvim-lsp-ts-utils")
@@ -62,7 +62,7 @@ require("mason-lspconfig").setup({
 		"clangd",
 		-- 
 		"eslint",
-		"tsserver",
+		"ts_ls",
 		"html",
 		"tailwindcss",
 		"jsonls",
@@ -91,6 +91,9 @@ require("mason-lspconfig").setup({
 
 		-- SQL
 		"sqlls",
+
+		-- TEX
+		"texlab",
 	},
 	handlers = {
 		default_setup,

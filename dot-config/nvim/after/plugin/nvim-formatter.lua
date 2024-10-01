@@ -3,12 +3,17 @@ local formatters = require("formatter.defaults")
 require("formatter").setup({
 	log_level = vim.log.levels.WARN,
 	filetype = {
-		tex = require("formatter.filetypes.tex").latexindent,
-		latex = require("formatter.filetypes.latex").latexindent,
-
+		tex = function()
+			return {
+				exe = "latexindent",
+				args = { "-g", "-" },
+				stdin = true,
+			}
+		end,
 		lua = require("formatter.filetypes.lua").stylua,
 		rust = require("formatter.filetypes.rust").rustfmt,
 		cpp = require("formatter.filetypes.cpp").clangformat,
+		c = require("formatter.filetypes.c").clangformat,
 		python = require("formatter.filetypes.python").black,
 
 		-- JS Land
