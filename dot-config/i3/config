@@ -15,6 +15,8 @@ for_window [class="steamwebhelper"] floating enable
 # Set refresh rate to 165
 exec_always xrandr --output DP-0 --mode 3440x1440 --rate 165
 
+
+
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -36,7 +38,6 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- xsecurelock
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
-exec_always --no-startup-id picom --backend glx
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
