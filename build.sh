@@ -17,7 +17,7 @@ then
 
 
     printf "Checked out last trusted commit, please verify all changes.\n"\
-            "And ensure that there are no malicious changes"
+        "And ensure that there are no malicious changes"
 
     echo "The Following Files Should be checked:"
 
@@ -25,7 +25,7 @@ then
 
     exit 1
 fi
-    
+
 
 
 export TMUX_PATH=$(which tmux)
@@ -59,7 +59,7 @@ if [ ! -f  /usr/local/bin/wait4exit -a $OSTYPE = "darwin\*" ]; then
     echo "sudo gcc ./packages/wait4exit/wait4exit.c -o /usr/local/bin/wait4exit"
 
     echo "exec sudo $0 $@"
-   
+
     echo "$(whoami)"
     [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
     sudo gcc ./packages/wait4exit/wait4exit.c -o /usr/local/bin/wait4exit
@@ -68,7 +68,7 @@ fi;
 # Run stow in simulation mode, this is just meant to show if there are missing 
 # things from the link
 MISSING_LINKS=$(
-    stow -nv --dotfiles .  2>&1  \
+stow -nv --dotfiles .  2>&1  \
     | sed '/WARNING: in simulation mode so not modifying filesystem\./d'  \
     | sort 
 )
@@ -88,10 +88,10 @@ then
     echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-	    stow --dotfiles . > /dev/null
-	    echo "Done!"
+        stow --dotfiles . > /dev/null
+        echo "Done!"
     else 
-	    echo "Proceeding without links..."
+        echo "Proceeding without links..."
     fi
 
 fi
