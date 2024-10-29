@@ -1,9 +1,8 @@
-dot-config/alacritty/alacritty.toml
-dot-ssh/config
-packages/wait4exit/wait4exit
 **/__pycache__
 dot-config/alacritty/alacritty.toml
-dot-ssh/config
-dot-config/tmux/plugins
 dot-config/openvpn
 dot-config/openvpn.tar
+dot-config/tmux/plugins
+dot-ssh/config
+packages/wait4exit/wait4exit
+**/.DS_Store
