@@ -2,22 +2,11 @@ local wk = require("which-key")
 local fzf_lua = require("fzf-lua")
 local comments = require("Comment.api")
 
-local function is_git_directory()
-	-- Use Neovim's vim.fn.system to execute the git command
-	-- and check if the current directory is inside a git work tree
-	local result = vim.fn.system("git rev-parse --is-inside-work-tree")
-
-	-- Trim the newline character from the output for accurate comparison
-	result = result:gsub("%s+", "")
-
-	-- Check the result of the command. If it's 'true', it means we're in a git directory
-	return result == "true"
-end
-
 local function get_git_root()
 	local result = vim.fn.system("git rev-parse --show-toplevel")
 
-	result = result:gsub("%s+", "")
+	-- Trim the whitespace(s) from the end of the line
+	result = result:gsub("%s+$", "")
 
 	if string.len(result) > 0 then
 		return result
