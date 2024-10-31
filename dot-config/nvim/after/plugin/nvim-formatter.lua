@@ -6,7 +6,6 @@ require("formatter").setup({
 		tex = function()
 			return {
 				exe = "latexindent",
-				args = { "-g", "-" },
 				stdin = true,
 			}
 		end,
