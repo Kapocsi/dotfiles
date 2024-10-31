@@ -25,91 +25,44 @@ local function cwd_get()
 	end
 end
 
-wk.register({
-	["<A-Right>"] = {
-		"<cmd>bn<cr>",
-		"Buffer Next",
-	},
-	["<A-Left>"] = {
-		"<cmd>bp<cr>",
-		"Buffer Previous",
-	},
-})
-
-wk.register({
-	f = {
-		name = "find", -- optional group name
-		f = {
-			function()
-				fzf_lua.files({
-					cwd = cwd_get(), -- Traverse to the root of the project if needed
-				})
-			end,
-			"Find File",
-		},
-		s = {
-			fzf_lua.live_grep, -- telescope.live_grep,
-			"Find File",
-		},
-		b = {
-			fzf_lua.buffers,
-			"Find Buffer",
-		},
-		S = {
-			fzf_lua.lsp_workspace_symbols,
-			"Find Workspace Symbol",
-		},
-	},
-	["|"] = {
-		"<cmd>vsplit<cr>",
-		"Vertical Split",
-	},
-	['"'] = {
-		"<cmd>split<cr>",
-		"Split",
-	},
-	u = {
-		"<cmd>UndotreeToggle<CR>",
-		"Undo Tree",
-	},
-	["/"] = {
+wk.add({
+	{ "<A-Left>", "<cmd>bp<cr>", desc = "Buffer Previous" },
+	{ "<A-Right>", "<cmd>bn<cr>", desc = "Buffer Next" },
+	{ '<leader>"', "<cmd>split<cr>", desc = "Split" },
+	{
+		"<leader>/",
 		function()
 			comments.toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
 		end,
-		"Comment Line",
+		desc = "Comment Line",
 	},
-}, {
-	prefix = "<leader>",
+	{ "<leader>f", group = "find" },
+	{ "<leader>fS", fzf_lua.lsp_workspace_symbols, desc = "Find Workspace Symbol" },
+	{ "<leader>fb", fzf_lua.buffers, desc = "Find Buffer" },
+	{
+		"<leader>ff",
+		function()
+			fzf_lua.files({
+				cwd = cwd_get(), -- Traverse to the root of the project if needed
+			})
+		end,
+		desc = "Find File",
+	},
+	{ "<leader>fs", fzf_lua.live_grep, desc = "Find File" },
+	{ "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Undo Tree" },
+	{ "<leader>|", "<cmd>vsplit<cr>", desc = "Vertical Split" },
+	{ "z=", fzf_lua.spell_suggest, desc = "Fix Spelling" },
 })
 
-wk.register({
-	J = {
-		":m '>+1<CR>gv=gv",
-		"Move Block",
-	},
-	K = {
-		":m '<-2<CR>gv=gv",
-		"Move Block",
-	},
-	["<leader>/"] = {
-		"<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
-		"Comment Block",
-	},
-	["<Tab>"] = {
-		">gv",
-		"Tabin",
-	},
-	["<S-Tab>"] = {
-		"<gv",
-		"Tabout",
-	},
-}, {
+wk.add({
 	mode = "v",
-})
-
-wk.register({
-	["z="] = {
-		fzf_lua.spell_suggest,
-		"Fix Spelling",
+	{ "<S-Tab>", "<gv", desc = "Tabout" },
+	{ "<Tab>", ">gv", desc = "Tabin" },
+	{
+		"<leader>/",
+		"<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+		desc = "Comment Block",
 	},
+	{ "J", ":m '>+1<CR>gv=gv", desc = "Move Block" },
+	{ "K", ":m '<-2<CR>gv=gv", desc = "Move Block" },
 })
