@@ -1,4 +1,4 @@
-return {
+return({
 	"andweeb/presence.nvim",
 	"xiyaowong/transparent.nvim",
 	"JoosepAlviste/nvim-ts-context-commentstring",
@@ -37,4 +37,4 @@ return {
 			},
 		},
 	},
-}
+})
