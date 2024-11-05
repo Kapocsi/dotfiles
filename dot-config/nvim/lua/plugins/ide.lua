@@ -7,7 +7,12 @@ return {
 	"hrsh7th/cmp-path",
 	"hrsh7th/cmp-buffer",
 	"stevearc/dressing.nvim",
-	"ibhagwan/fzf-lua",
+	{
+		"ibhagwan/fzf-lua",
+		config = function()
+			require("fzf-lua").setup({})
+		end,
+	},
 	"mfussenegger/nvim-lint",
 	{
 		"FabijanZulj/blame.nvim",

@@ -1,3 +1,3 @@
 require("presence").setup({
-    main_image = "file"
+	main_image = "file",
 })
