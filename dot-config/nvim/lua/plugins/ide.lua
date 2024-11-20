@@ -1,3 +1,26 @@
+local function is_program_installed(program_name)
+	-- Get the PATH environment variable
+	local path_env = os.getenv("PATH")
+	if not path_env then
+		return false -- PATH is not set
+	end
+
+	-- Split PATH into individual directories
+	for path_dir in path_env:gmatch("[^:]+") do
+		local full_path = path_dir .. "/" .. program_name
+		-- Check if the file exists and is executable
+		local file = io.open(full_path, "r")
+		if file then
+			file:close()
+			return true
+		end
+	end
+
+	return false
+end
+
+local pdf_previwer = is_program_installed("zathura") and "zathura" or "skim"
+
 return {
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
@@ -25,7 +48,7 @@ return {
 		"lervag/vimtex",
 		lazy = false,
 		init = function()
-			vim.g.vimtex_view_method = "skim"
+			vim.g.vimtex_view_method = pdf_previwer
 		end,
 	},
 }
