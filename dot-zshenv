@@ -15,6 +15,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     path+=("/opt/local/bin")
     path+=("/opt/local/sbin")
 
+    path+=($HOME/Library/Python/*/bin)
+
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 

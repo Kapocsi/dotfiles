@@ -106,7 +106,6 @@ local mason_requires = {
 	"clang-format",
 	"stylua",
 	"prettier",
-	-- "mypy",
 	"shfmt",
 }
 
