@@ -23,7 +23,7 @@ fi
 
 path+="$HOME/hatari-st/"
 
-if (hash nvim > /dev/null); then 
+if (hash nvim > /dev/null); then
 	export EDITOR="nvim"
 else
 	export EDITOR="vim"

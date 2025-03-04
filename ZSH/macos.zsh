@@ -1,6 +1,10 @@
-if [[ "$OSTYPE" != "darwin"* ]] then 
-    return 
+if [[ "$OSTYPE" != "darwin"* ]] then
+    return
 fi
+
+# m68k-atari-mint cross compiler
+export PATH=$PATH:/opt/cross-mint/bin
+export MANPATH=$MANPATH:/opt/cross-mint/share/man
 
 
 export MANPATH="/opt/local/share/man:$MANPATH"
