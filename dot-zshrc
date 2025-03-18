@@ -15,8 +15,6 @@ alias ls="eza -h -l --icons --git --no-quotes --group-directories-first"
 alias clear="clear && printf \"\e[H\e[2J\e[3J\""
 alias tokei="tokei -n commas"
 alias vim="nvim"
-alias l="ls -a"
-alias ll="ls --all"
 
 ######## Helpers ########
 alias localip="ipconfig getifaddr en0"
