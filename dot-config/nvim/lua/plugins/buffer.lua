@@ -10,6 +10,7 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 
 return {
+	"LunarVim/bigfile.nvim",
 	"mhartington/formatter.nvim",
 	{
 		"L3MON4D3/LuaSnip",
