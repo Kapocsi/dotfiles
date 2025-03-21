@@ -1,4 +1,5 @@
 local fzf_lua = require("fzf-lua")
+local wk = require("which-key")
 
 vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
 vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
@@ -9,11 +10,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local buffer = args.buf
 
-		local opts = {
+		wk.add({
+			mode = "n",
 			buffer = buffer,
-		}
-
-		require("which-key").add({
 			{
 				"K",
 				function()
@@ -21,16 +20,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 				end,
 				desc = "Hover Diagnostic",
 			},
-			{
-				"gd",
-				fzf_lua.lsp_definitions,
-				desc = "Jump Definition",
-			},
-			{
-				"dD",
-				fzf_lua.lsp_declarations,
-				desc = "Jump Declaration",
-			},
+			{ "gd", fzf_lua.lsp_definitions, desc = "Jump Definition" },
+			{ "dD", fzf_lua.lsp_declarations, desc = "Jump Declaration" },
 			{ "gu", fzf_lua.lsp_incoming_calls, desc = "View Usages" },
 			{ "gi", fzf_lua.lsp_implementations, desc = "View Implementation" },
 			{ "go", fzf_lua.type_definitions, desc = "Jump Type Definition" },
@@ -39,6 +30,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			{ "<leader>lr", vim.lsp.buf.rename, desc = "Rename" },
 			{ "<leader>la", fzf_lua.lsp_code_actions, desc = "Code Action" },
 			{ "<leader>ld", vim.diagnostic.open_float, desc = "View Diagnostic" },
-		}, { buffer = buffer })
+		})
 	end,
 })

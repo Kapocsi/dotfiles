@@ -26,13 +26,21 @@ require("formatter").setup({
 		html = formatters.prettier,
 		json = formatters.prettier,
 		yaml = formatters.prettier,
-		markdown = formatters.prettier,
+		markdown = function()
+			local temp = formatters.prettier()
+			table.insert(temp.args, 1, "--config-precedence=file-override")
+			table.insert(temp.args, 1, "--prose-wrap=always")
+			-- vim.print(temp)
+			return temp
+		end,
 		graphql = formatters.prettier,
 		vue = formatters.prettier,
 		svelte = formatters.prettier,
 
 		sh = formatters.beautysh,
 		zsh = formatters.beautysh,
+
+		glsl = require("formatter.filetypes.cpp").clangformat,
 	},
 })
 
