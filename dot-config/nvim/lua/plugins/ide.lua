@@ -40,7 +40,10 @@ return {
 	{
 		"FabijanZulj/blame.nvim",
 		config = function()
-			require("blame").setup()
+			require("blame").setup({
+				merge_consecutive = true,
+				blame_options = { "-w", "-C", "-C", "-C" },
+			})
 		end,
 	},
 	"neovim/nvim-lspconfig",

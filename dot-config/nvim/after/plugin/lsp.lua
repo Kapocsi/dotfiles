@@ -8,18 +8,8 @@ vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "LSP actions",
 	callback = function(args)
-		local buffer = args.buf
-
-		wk.add({
-			mode = "n",
-			buffer = buffer,
-			{
-				"K",
-				function()
-					vim.lsp.buf.hover()
-				end,
-				desc = "Hover Diagnostic",
-			},
+		require("which-key").add({
+			{ "K", vim.lsp.buf.hover, desc = "Hover Diagnostic" },
 			{ "gd", fzf_lua.lsp_definitions, desc = "Jump Definition" },
 			{ "dD", fzf_lua.lsp_declarations, desc = "Jump Declaration" },
 			{ "gu", fzf_lua.lsp_incoming_calls, desc = "View Usages" },
@@ -30,6 +20,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			{ "<leader>lr", vim.lsp.buf.rename, desc = "Rename" },
 			{ "<leader>la", fzf_lua.lsp_code_actions, desc = "Code Action" },
 			{ "<leader>ld", vim.diagnostic.open_float, desc = "View Diagnostic" },
-		})
+		}, { buffer = args.buf, mode = "n" })
 	end,
 })
