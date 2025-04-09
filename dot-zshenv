@@ -5,6 +5,7 @@ path+=("$HOME/.bun")
 path+=("$BUN_INSTALL/bin")
 path+=("$HOME/.local/bin")
 path+=("$HOME/dotfiles/dot-config/tmux/plugins/tmux-session-wizard/bin")
+path+=("$HOME/dotfiles/scripts/")
 
 fpath+="$HOME/dotfiles/zfunc"
 

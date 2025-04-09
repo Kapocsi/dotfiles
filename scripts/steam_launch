@@ -1,0 +1,2 @@
+#! /bin/env sh
+steam "steam://rungameid/$(cat $HOME/dotfiles/scripts/appids | rg --invert-match '^[0-9]+ *(:?Steam|Proton)' | fzf --with-nth=2.. | cut -d' ' -f1)" -silent

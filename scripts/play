@@ -1,0 +1,3 @@
+#! /bin/env sh
+
+alacritty --config-file=/dev/null --class fzfpopup  -e $HOME/dotfiles/scripts/steam_launch
