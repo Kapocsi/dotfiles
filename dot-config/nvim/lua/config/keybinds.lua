@@ -52,7 +52,7 @@ wk.add({
 	{ "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Undo Tree" },
 	{ "<leader>|", "<cmd>vsplit<cr>", desc = "Vertical Split" },
 	{ "z=", fzf_lua.spell_suggest, desc = "Fix Spelling" },
-	{ "<leader>gb", "<cmd>BlameToggle<CR>", desc = "Toggle Git Blame" },
+	{ "<leader>gb", "<cmd>BlameToggle virtual<CR>", desc = "Toggle Git Blame" },
 })
 
 wk.add({
