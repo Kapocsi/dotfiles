@@ -1,10 +1,4 @@
 return {
-	{
-		"vyfor/cord.nvim",
-		build = "./build || .\\build",
-		event = "VeryLazy",
-		opts = {}, -- calls require('cord').setup()
-	},
 	"xiyaowong/transparent.nvim",
 	"JoosepAlviste/nvim-ts-context-commentstring",
 	"numToStr/Comment.nvim",

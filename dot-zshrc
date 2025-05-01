@@ -21,6 +21,8 @@ alias localip="ipconfig getifaddr en0"
 alias ins_vpn_connect="sudo $HOME/.config/openvpn/vpn_connect.sh"
 alias ins_vpn_disconnect="sudo $HOME/.config/openvpn/vpn_disconnect.sh"
 
+alias git-init-commit="git add . && git commit -m 'Initial Commit' --no-gpg-sign"
+
 #### Touch and make executable ####
 function touchx() { touch $@ && chmod +x $@ }
 

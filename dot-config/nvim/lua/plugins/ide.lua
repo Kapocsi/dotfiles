@@ -22,6 +22,12 @@ end
 local pdf_previwer = is_program_installed("zathura") and "zathura" or "skim"
 
 return {
+{ 
+    "danymat/neogen", 
+    config = true,
+    -- Uncomment next line if you want to follow only stable versions
+    -- version = "*" 
+},
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
 	"hrsh7th/cmp-nvim-lsp",
