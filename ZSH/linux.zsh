@@ -1,5 +1,5 @@
-if [[ "$OSTYPE" !=  "linux-gnu" ]]; then 
-    return 
+if [[ "$OSTYPE" !=  "linux-gnu" ]]; then
+    return
 fi
 
 
@@ -7,9 +7,9 @@ fi
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 
-# If we are not in a firejail 
+# If we are not in a firejail
 if firejail --list 2> /dev/null > /dev/null; then;
-    eval $(keychain --agents ssh --eval --quiet)
+    eval $(keychain --eval --quiet)
 fi
 
 alias open="xdg-open"
