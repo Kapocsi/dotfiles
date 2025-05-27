@@ -55,3 +55,7 @@ function publicip () {
 function whoisme () {
 	whois $(publicip)
 }
+
+function sdf() {
+    df | tee >(head -n1) | tail -n+2 | sort -rk4
+}
