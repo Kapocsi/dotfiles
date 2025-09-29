@@ -1,4 +1,12 @@
+typeset -U path fpath
+
 . "$HOME/.cargo/env"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  # Force-prepend in case brew shellenv didn’t land first
+  path[1,0]=(/opt/homebrew/bin /opt/homebrew/sbin)
+fi
 
 path+=("$HOME/.cargo/bin")
 path+=("$HOME/.bun")
@@ -6,26 +14,21 @@ path+=("$BUN_INSTALL/bin")
 path+=("$HOME/.local/bin")
 path+=("$HOME/dotfiles/dot-config/tmux/plugins/tmux-session-wizard/bin")
 path+=("$HOME/dotfiles/scripts/")
+path+=("$HOME/hatari-st/")
 
-fpath+="$HOME/dotfiles/zfunc"
+fpath+=("$HOME/dotfiles/zfunc")
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    ## Init brew environment
-	eval "$(/opt/homebrew/bin/brew shellenv)"
-
-    path+=("/Library/Frameworks/Python.framework/Versions/3.10/bin")
-    path+=("/opt/homebrew/opt/mysql-client/bin")
-    path+=("/opt/homebrew/opt/postgresql@15/bin")
-    path+=("/opt/local/bin")
-    path+=("/opt/local/sbin")
-    path+=($HOME/Library/Python/*/bin)
-
+  path+=("/Library/Frameworks/Python.framework/Versions/3.10/bin")
+  path+=("/opt/homebrew/opt/mysql-client/bin")
+  path+=("/opt/homebrew/opt/postgresql@15/bin")
+  path+=("/opt/local/bin" "/opt/local/sbin")
+  path+=($HOME/Library/Python/*/bin)
 fi
 
-path+="$HOME/hatari-st/"
-
-if (hash nvim > /dev/null); then
-	export EDITOR="nvim"
+# Editor
+if (( $+commands[nvim] )); then
+  export EDITOR="nvim"
 else
-	export EDITOR="vim"
+  export EDITOR="vim"
 fi
