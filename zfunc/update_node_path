@@ -1,0 +1,106 @@
+# Minimal, fast pnpm-aware PATH updater for zsh
+# Keeps a ledger of added bins and prunes invalid ones on cd
+
+typeset -gU NODE_PATH_LEDGER              # ledger of added paths
+typeset -gA PNPM_LOCAL_CACHE              # workspace root -> bin path
+typeset -g PNPM_LAST_WORKSPACE            # last workspace root
+typeset -g PNPM_LAST_BIN                  # last resolved local bin
+
+# ─────────────────────────────────────────────
+# pure-shell replacement for `pnpm bin`
+pnpm_bin_sh() {
+  local dir="$PWD"
+  while [[ "$dir" != "/" ]]; do
+    if [[ -d "$dir/node_modules/.bin" ]]; then
+      echo "$dir/node_modules/.bin"
+      return 0
+    fi
+    dir="${dir:h}"
+  done
+  return 1
+}
+
+# detect workspace root
+_detect_workspace_root() {
+  local dir="$PWD"
+  while [[ "$dir" != "/" ]]; do
+    if [[ -f "$dir/pnpm-workspace.yaml" || -f "$dir/package.json" ]]; then
+      echo "$dir"
+      return 0
+    fi
+    dir="${dir:h}"
+  done
+  return 1
+}
+
+# remove ledgered paths not in current ancestry
+_prune_ledger() {
+  local kept=()
+  for dir in $NODE_PATH_LEDGER; do
+    if [[ "$PWD" == "$dir"* ]]; then
+      kept+=("$dir")
+    else
+      PATH="${PATH//:$dir/}"
+      PATH="${PATH//$dir:/}"
+    fi
+  done
+  NODE_PATH_LEDGER=("${kept[@]}")
+}
+
+# get cached local bin path (pure shell)
+_get_local_bin_cached() {
+  local root="$(_detect_workspace_root)"
+  [[ -z "$root" ]] && return 1
+
+  # reuse if same workspace
+  if [[ "$root" == "$PNPM_LAST_WORKSPACE" && -n "$PNPM_LAST_BIN" ]]; then
+    echo "$PNPM_LAST_BIN"
+    return 0
+  fi
+
+  # check cache table first
+  if [[ -n "${PNPM_LOCAL_CACHE[$root]}" ]]; then
+    PNPM_LAST_WORKSPACE="$root"
+    PNPM_LAST_BIN="${PNPM_LOCAL_CACHE[$root]}"
+    echo "$PNPM_LAST_BIN"
+    return 0
+  fi
+
+  # fallback: resolve via pure shell
+  local bin="$(pnpm_bin_sh)"
+  PNPM_LOCAL_CACHE[$root]="$bin"
+  PNPM_LAST_WORKSPACE="$root"
+  PNPM_LAST_BIN="$bin"
+  echo "$bin"
+}
+
+# add local bin if needed
+_add_local_bin() {
+  local local_bin="$(_get_local_bin_cached)"
+  [[ -z "$local_bin" ]] && return
+  if [[ -d "$local_bin" && -z ${NODE_PATH_LEDGER[(r)$local_bin]} ]]; then
+    NODE_PATH_LEDGER+=("$local_bin")
+  fi
+}
+
+# rebuild PATH
+_rebuild_path() {
+  local new_path=("${NODE_PATH_LEDGER[@]}")
+  local current=("${(@s/:/)PATH}")
+  for dir in $current; do
+    if (( ! ${NODE_PATH_LEDGER[(Ie)$dir]} )); then
+      new_path+=("$dir")
+    fi
+  done
+  export PATH="${(j/:/)new_path}"
+}
+
+# main entry
+update_node_path() {
+  emulate -L zsh
+  setopt localoptions extendedglob
+
+  _prune_ledger
+  _add_local_bin
+  _rebuild_path
+}

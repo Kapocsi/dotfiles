@@ -2,6 +2,7 @@ SRC="$HOME/dotfiles/ZSH"
 
 source "$SRC/packages.zsh"
 source "$SRC/pyautoenv.zsh"
+source "$SRC/autonode.zsh"
 source "$SRC/prompt.zsh"
 source "$SRC/settings.zsh"
 
