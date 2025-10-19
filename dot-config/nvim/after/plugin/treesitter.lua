@@ -20,11 +20,12 @@ vim.filetype.add({
 				return filetype
 			end
 		end,
-		-- Explicit override for the dot-zsh files, these don't match because a
 		-- literal "." is expected instead
 		["dot%-zsh.*"] = "zsh",
 
 		[".zsh.*"] = "sh",
+
+		["%.env%..*"] = "sh",
 	},
 })
 
