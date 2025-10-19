@@ -94,6 +94,9 @@ require("mason-lspconfig").setup({
 
 		-- TEX
 		"texlab",
+
+		-- java
+		"jdtls",
 	},
 	handlers = {
 		default_setup,
