@@ -4,9 +4,9 @@ function verify_history() {
     git log --format="%H" | xargs -P0 -I {} sh -c 'git verify-commit {} 2> /dev/null || (echo "Could not verify {}" && exit 1)'
 }
 
-if ! verify_history 
+if ! verify_history
 then
-    printf "Failed To Verify Commit History.\n" 
+    printf "Failed To Verify Commit History.\n"
     printf "Refusing To Continue. \n\n\n"
 
     ## Find last trusted commit
@@ -31,28 +31,31 @@ fi
 export TMUX_PATH=$(which tmux)
 export ALACRITTY_CONF_PATH=./dot-config/alacritty/alacritty.toml
 
-## Check tmux compat 
+## Check tmux compat
 sort <(echo 3.1; tmux -V | tr -d -c 0-9.) --check 2> /dev/null || echo "Please Update tmux, requires 3.1>="
 
-if [[ "$OSTYPE" == "darwin"* ]]; then 
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
     export KEYCHAIN_LINE="UseKeychain yes"
     export FONT_SIZE_LINE="size=15"
-else 
+else
     export FONT_SIZE_LINE="size=12"
     export KEYCHAIN_LINE="# Removed use keychain for non-mac device\n"
-fi 
+fi
 
-# We want to use a the option UseKeychain yes on Mac  
+# We want to use a the option UseKeychain yes on Mac
 envsubst < ./dot-ssh/config.tmpl > ./dot-ssh/config
 
-# Create alacritty config, because tmux does not have constant install location 
-# and for some reason I can't get the PATH var to be initialized when tmux is 
-# launched 
+# Create alacritty config, because tmux does not have constant install location
+# and for some reason I can't get the PATH var to be initialized when tmux is
+# launched
 envsubst < $ALACRITTY_CONF_PATH.tmpl > $ALACRITTY_CONF_PATH
 
 # Decrypt openvpn config
+if [ ! -f ~/dotfiles/dot-config/openvpn.tar  ]; then
 gpg --decrypt-files ~/dotfiles/dot-config/openvpn.tar.gpg
 tar -C ~/dotfiles/dot-config/ -xf ~/dotfiles/dot-config/openvpn.tar
+fi;
 
 if [ ! -f  /usr/local/bin/wait4exit -a $OSTYPE = "darwin\*" ]; then
     echo "Missing Binary File Detected, Installing using :"
@@ -65,22 +68,22 @@ if [ ! -f  /usr/local/bin/wait4exit -a $OSTYPE = "darwin\*" ]; then
     sudo gcc ./packages/wait4exit/wait4exit.c -o /usr/local/bin/wait4exit
 fi;
 
-# Run stow in simulation mode, this is just meant to show if there are missing 
+# Run stow in simulation mode, this is just meant to show if there are missing
 # things from the link
 MISSING_LINKS=$(
 stow -nv --dotfiles .  2>&1  \
     | sed '/WARNING: in simulation mode so not modifying filesystem\./d'  \
-    | sort 
+    | sort
 )
 
-if (test $(echo $MISSING_LINKS | wc -c) -ne 1 )  
+if (test $(echo $MISSING_LINKS | wc -c) -ne 1 )
 
 then
     echo "The Following Symlinks were not found:"
 
     IFS=$'\n'
-    for l in $MISSING_LINKS 
-    do 
+    for l in $MISSING_LINKS
+    do
         printf "\t$l\n"
     done
 
@@ -90,7 +93,7 @@ then
     then
         stow --dotfiles . > /dev/null
         echo "Done!"
-    else 
+    else
         echo "Proceeding without links..."
     fi
 
