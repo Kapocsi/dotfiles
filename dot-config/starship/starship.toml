@@ -1,0 +1,46 @@
+[hostname]
+ssh_only = true
+style = "red"
+format = "[󰴽 $hostname]($style) "
+
+
+[character]
+success_symbol = "[󰄾](fg:#00ff00)"
+error_symbol = "[󰄾](fg:#ff0000)"
+
+[package]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[python]
+disabled = true
+
+[rust]
+disabled = true
+
+[java]
+disabled = true
+
+[golang]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[line_break]
+disabled = true
+
+[custom.firejail]
+command = "echo 󰒄"
+when = "! firejail --list > /dev/null 2>&1"
+os = "linux"
+format = "[$output]($style)"
+style = "white"
