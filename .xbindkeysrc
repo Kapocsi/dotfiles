@@ -11,3 +11,9 @@
 "playerctl previous"
     XF86AudioPrev
 
+
+"ddcutil --display 1 setvcp 60 6"
+    mod4 + insert
+
+"ddcutil --display 1 setvcp 60 9"
+    mod4 + home

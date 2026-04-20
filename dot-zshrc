@@ -51,7 +51,7 @@ export PYTHONBREAKPOINT="IPython.embed"
 export GPG_TTY=$(tty)
 
 function publicip () {
-	dig +short txt ch whoami.cloudflare @1.0.0.1 | tr -d '"'
+    curl icanhazip.com
 }
 function whoisme () {
 	whois $(publicip)
