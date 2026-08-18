@@ -1,55 +1,45 @@
-local formatters = require("formatter.defaults")
+-- Formatting via conform.nvim (replaces mhartington/formatter.nvim).
+require("conform").setup({
+	formatters_by_ft = {
+		tex = { "latexindent" },
+		lua = { "stylua" },
+		rust = { "rustfmt" },
+		c = { "clang-format" },
+		cpp = { "clang-format" },
+		glsl = { "clang-format" },
+		python = { "black" },
 
-require("formatter").setup({
-	log_level = vim.log.levels.WARN,
-	filetype = {
-		tex = function()
-			return {
-				exe = "/opt/homebrew/bin/latexindent",
-				stdin = true,
-			}
-		end,
-		lua = require("formatter.filetypes.lua").stylua,
-		rust = require("formatter.filetypes.rust").rustfmt,
-		cpp = require("formatter.filetypes.cpp").clangformat,
-		c = require("formatter.filetypes.c").clangformat,
-		python = require("formatter.filetypes.python").black,
+		-- JS land
+		javascript = { "prettier" },
+		javascriptreact = { "prettier" },
+		typescript = { "prettier" },
+		typescriptreact = { "prettier" },
+		css = { "prettier" },
+		scss = { "prettier" },
+		less = { "prettier" },
+		html = { "prettier" },
+		json = { "prettier" },
+		yaml = { "prettier" },
+		markdown = { "prettier" },
+		graphql = { "prettier" },
+		vue = { "prettier" },
+		svelte = { "prettier" },
 
-		-- JS Land
-		javascript = formatters.prettier,
-		javascriptreact = formatters.prettier,
-		typescript = formatters.prettier,
-		typescriptreact = formatters.prettier,
-		css = formatters.prettier,
-		scss = formatters.prettier,
-		less = formatters.prettier,
-		html = formatters.prettier,
-		json = formatters.prettier,
-		yaml = formatters.prettier,
-		markdown = function()
-			local temp = formatters.prettier()
-			table.insert(temp.args, 1, "--config-precedence=file-override")
-			table.insert(temp.args, 1, "--prose-wrap=always")
-			-- vim.print(temp)
-			return temp
-		end,
-		graphql = formatters.prettier,
-		vue = formatters.prettier,
-		svelte = formatters.prettier,
-
-		sh = formatters.beautysh,
-		zsh = formatters.beautysh,
-
-		glsl = require("formatter.filetypes.cpp").clangformat,
+		sh = { "beautysh" },
+		zsh = { "beautysh" },
 	},
-})
 
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
-augroup("__formatter__", {
-	clear = true,
-})
-autocmd("BufWritePost", {
-	group = "__formatter__",
-	command = ":FormatWriteLock",
+	-- Format on save, falling back to LSP formatting when no formatter is set.
+	format_on_save = {
+		timeout_ms = 3000,
+		lsp_format = "fallback",
+	},
+
+	formatters = {
+		-- Preserve the old markdown prose wrapping behaviour (prettier only
+		-- applies --prose-wrap to markdown/mdx, so this is safe globally).
+		prettier = {
+			prepend_args = { "--prose-wrap=always" },
+		},
+	},
 })

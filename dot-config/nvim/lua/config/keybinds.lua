@@ -1,6 +1,5 @@
 local wk = require("which-key")
 local fzf_lua = require("fzf-lua")
-local comments = require("Comment.api")
 
 local function get_git_root()
 	local result = vim.fn.system("git rev-parse --show-toplevel")
@@ -31,10 +30,9 @@ wk.add({
 	{ '<leader>"', "<cmd>split<cr>", desc = "Split" },
 	{
 		"<leader>/",
-		function()
-			comments.toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
-		end,
+		"gcc",
 		desc = "Comment Line",
+		remap = true,
 	},
 	{ "<leader>f", group = "find" },
 	{ "<leader>fS", fzf_lua.lsp_workspace_symbols, desc = "Find Workspace Symbol" },
@@ -61,8 +59,9 @@ wk.add({
 	{ "<Tab>", ">gv", desc = "Tabin" },
 	{
 		"<leader>/",
-		"<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+		"gc",
 		desc = "Comment Block",
+		remap = true,
 	},
 	{ "J", ":m '>+1<CR>gv=gv", desc = "Move Block" },
 	{ "K", ":m '<-2<CR>gv=gv", desc = "Move Block" },

@@ -22,24 +22,34 @@ end
 local pdf_previwer = is_program_installed("zathura") and "zathura" or "skim"
 
 return {
+{ 
+    "danymat/neogen", 
+    config = true,
+    -- Uncomment next line if you want to follow only stable versions
+    -- version = "*" 
+},
+	-- mason moved orgs: williamboman/* is deprecated in favour of mason-org/*
+	"mason-org/mason.nvim",
+	"mason-org/mason-lspconfig.nvim",
 	{
-		"danymat/neogen",
-		config = true,
-		-- Uncomment next line if you want to follow only stable versions
-		-- version = "*"
+		-- Modern completion engine, replaces the (now unmaintained) nvim-cmp
+		-- stack (hrsh7th/nvim-cmp + cmp-* sources).
+		"saghen/blink.cmp",
+		version = "1.*",
+		dependencies = { "L3MON4D3/LuaSnip" },
+		-- Setup lives in after/plugin/cmp.lua
 	},
-	"williamboman/mason.nvim",
-	"williamboman/mason-lspconfig.nvim",
-	"hrsh7th/cmp-nvim-lsp",
-	"hrsh7th/nvim-cmp",
-	"hrsh7th/cmp-path",
-	"hrsh7th/cmp-buffer",
-	"stevearc/dressing.nvim",
+	{
+		-- Formatter, replaces the older mhartington/formatter.nvim
+		"stevearc/conform.nvim",
+		-- Setup lives in after/plugin/nvim-formatter.lua
+	},
 	{
 		"ibhagwan/fzf-lua",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("fzf-lua").setup({})
+			-- Use fzf-lua as the vim.ui.select backend (replaces dressing.nvim)
+			require("fzf-lua").register_ui_select()
 		end,
 	},
 	"mfussenegger/nvim-lint",
@@ -58,15 +68,6 @@ return {
 		lazy = false,
 		init = function()
 			vim.g.vimtex_view_method = pdf_previwer
-		end,
-	},
-	{
-		"andythigpen/nvim-coverage",
-		version = "*",
-		config = function()
-			require("coverage").setup({
-				auto_reload = true,
-			})
 		end,
 	},
 }

@@ -1,31 +1,78 @@
-vim.filetype.add({
-	pattern = {
-		[".*"] = function(path)
-			if path:match("(.*zfunc/.*)") then
-				return "sh"
-			end
-		end,
+-- nvim-treesitter `main` branch (the `master` branch is frozen and breaks on
+-- Neovim 0.11+). The API is completely different: there is no more
+-- `require("nvim-treesitter.configs").setup()`. Instead we install parsers
+-- explicitly and turn highlighting/indent on per-buffer via `vim.treesitter`.
 
-		-- Use the correct syntax highlighting for the ssh config template,
-		-- this is stupid but I can't seem to match using the files "path"
-		["dot%-ssh/config%.tmpl"] = "ssh_config",
+local ts = require("nvim-treesitter")
 
-		-- Try to match using a file without the .tmpl extension
-		[".*tmpl"] = function(path)
-			local base_name = path:match(".*/(.+)%.tmpl$")
-			if base_name then
-				local filetype = vim.filetype.match({
-					filename = base_name,
-				})
-				return filetype
-			end
-		end,
-		-- literal "." is expected instead
-		["dot%-zsh.*"] = "zsh",
+-- Auto close/rename HTML/JSX tags (works independently of the treesitter API).
+---@diagnostic disable-next-line: missing-parameter
+require("nvim-ts-autotag").setup()
 
-		[".zsh.*"] = "sh",
+-- Parsers to keep installed. `master`'s `ensure_installed = "all"` is gone on
+-- `main` (it was also what tried to download the broken `ipkg` parser).
+local ensure_installed = {
+	"asm",
+	"bash",
+	"c",
+	"cpp",
+	"css",
+	"diff",
+	"dockerfile",
+	"git_config",
+	"gitcommit",
+	"go",
+	"graphql",
+	"html",
+	"java",
+	"javascript",
+	"json",
+	"latex",
+	"lua",
+	"luadoc",
+	"markdown",
+	"markdown_inline",
+	"python",
+	"query",
+	"regex",
+	"rust",
+	"scss",
+	"sql",
+	"ssh_config",
+	"svelte",
+	"toml",
+	"tsx",
+	"typescript",
+	"vim",
+	"vimdoc",
+	"vue",
+	"yaml",
+	"zig",
+}
 
-		["%.env%..*"] = "sh",
-	},
+-- Install any missing parsers asynchronously on startup.
+ts.install(ensure_installed)
+
+-- Enable treesitter highlighting + indentation for any buffer whose filetype has
+-- a parser available (installed or bundled with Neovim).
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("treesitter_start", { clear = true }),
+	callback = function(args)
+		local buf = args.buf
+		local ft = vim.bo[buf].filetype
+		local lang = vim.treesitter.language.get_lang(ft)
+		if not lang then
+			return
+		end
+
+		-- `language.add` succeeds only when a parser is actually available.
+		local ok = pcall(vim.treesitter.language.add, lang)
+		if not ok then
+			return
+		end
+
+		pcall(vim.treesitter.start, buf, lang)
+		-- Treesitter-based indentation (opt-in on the main branch).
+		vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end,
 })
-

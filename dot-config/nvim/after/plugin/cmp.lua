@@ -1,36 +1,33 @@
-local cmp = require("cmp")
+-- Completion via blink.cmp (replaces nvim-cmp + cmp-* sources).
+-- Docs: https://cmp.saghen.dev/
+require("blink.cmp").setup({
+	-- 'default' preset roughly matches the old nvim-cmp keymaps:
+	--   <C-space> open/toggle, <C-e> hide, <CR> accept,
+	--   <C-n>/<C-p> or arrows to select, <C-y> accept.
+	keymap = {
+		preset = "default",
+		-- Enter confirms the selected item, like the old <CR> mapping.
+		["<CR>"] = { "accept", "fallback" },
+		["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+	},
 
-cmp.setup({
+	appearance = {
+		nerd_font_variant = "mono",
+	},
+
+	completion = {
+		documentation = { auto_show = true },
+	},
+
+	-- LSP > snippets (luasnip) > path > buffer, mirroring the old priorities.
 	sources = {
-		{
-			name = "nvim_lsp",
-			priority = 1000,
-		},
-		{
-			name = "luasnip",
-			priority = 750,
-		},
-		{
-			name = "buffer",
-			priority = 500,
-		},
-		{
-			name = "path",
-			priority = 250,
-		},
+		default = { "lsp", "snippets", "path", "buffer" },
 	},
-	mapping = cmp.mapping.preset.insert({
-		-- Enter key confirms completion item
-		["<CR>"] = cmp.mapping.confirm({
-			select = false,
-		}),
 
-		-- Ctrl + space triggers completion menu
-		["<C-Space>"] = cmp.mapping.complete(),
-	}),
-	snippet = {
-		expand = function(args)
-			require("luasnip").lsp_expand(args.body)
-		end,
-	},
+	snippets = { preset = "luasnip" },
+
+	-- Rust fuzzy matcher with a Lua fallback (prebuilt binary via version = "1.*").
+	fuzzy = { implementation = "prefer_rust_with_warning" },
+
+	signature = { enabled = true },
 })

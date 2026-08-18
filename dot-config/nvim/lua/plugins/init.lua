@@ -1,7 +1,14 @@
 return {
 	"xiyaowong/transparent.nvim",
-	"JoosepAlviste/nvim-ts-context-commentstring",
-	"numToStr/Comment.nvim",
+	-- Neovim 0.10+ has built-in `gc`/`gcc` commenting; ts-comments.nvim just
+	-- makes the built-in commentstring context-aware (JSX, etc.). Replaces
+	-- numToStr/Comment.nvim + JoosepAlviste/nvim-ts-context-commentstring.
+	{
+		"folke/ts-comments.nvim",
+		opts = {},
+		event = "VeryLazy",
+	},
+	"windwp/nvim-ts-autotag",
 	"mbbill/undotree",
 	{
 		"altermo/ultimate-autopair.nvim",

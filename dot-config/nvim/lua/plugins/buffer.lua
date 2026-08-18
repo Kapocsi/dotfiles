@@ -1,5 +1,13 @@
+vim.opt.foldcolumn = "1" -- Show fold column
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+
+vim.cmd([[
+    highlight Folded guibg=none guifg=none
+]])
+
 return {
-	"mhartington/formatter.nvim",
 	{
 		"L3MON4D3/LuaSnip",
 		build = "make install_jsregexp",
@@ -8,7 +16,6 @@ return {
 	{
 		"2kabhishek/nerdy.nvim",
 		dependencies = {
-			"stevearc/dressing.nvim",
 			"nvim-telescope/telescope.nvim",
 		},
 		cmd = "Nerdy",
@@ -20,13 +27,10 @@ return {
 		end,
 	},
 	{
-		"ruifm/gitlinker.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		config = function()
-			require("gitlinker").setup()
-		end,
+		-- Maintained fork of the archived ruifm/gitlinker.nvim
+		"linrongbin16/gitlinker.nvim",
+		cmd = "GitLink",
+		opts = {},
 	},
 	{
 		"kevinhwang91/nvim-ufo",
@@ -41,11 +45,9 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
 		lazy = false,
 		build = ":TSUpdate",
-		dependencies = { "windwp/nvim-ts-autotag" },
-		config = function()
-			require("nvim-ts-autotag").setup()
-		end,
+		-- Setup lives in after/plugin/treesitter.lua
 	},
 }
