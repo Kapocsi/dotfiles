@@ -1,5 +1,40 @@
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-local lspconfig = require("lspconfig")
+
+vim.lsp.config("*", {
+	capabilities = lsp_capabilities,
+})
+
+vim.lsp.config("sqlls", {
+	filetypes = {
+		"sql",
+	},
+	root_dir = function(_, on_dir)
+		on_dir(vim.uv.cwd())
+	end,
+})
+
+vim.lsp.config("clangd", {
+	cmd = {
+		"clangd",
+		"--offset-encoding=utf-16",
+	},
+})
+
+vim.lsp.config("pyright", {
+	settings = {
+		pyright = {
+			autoImportCompletion = true,
+		},
+		python = {
+			analysis = {
+				autoSearchPaths = true,
+				diagnosticMode = "openFilesOnly",
+				useLibraryCodeForTypes = true,
+				typeCheckingMode = "basic",
+			},
+		},
+	},
+})
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
@@ -35,50 +70,10 @@ require("mason-lspconfig").setup({
 		-- Java
 		"jdtls",
 	},
-	handlers = {
-		-- Default: set up each server with shared capabilities
-		function(server)
-			lspconfig[server].setup({ capabilities = lsp_capabilities })
-		end,
-
-		["clangd"] = function()
-			lspconfig.clangd.setup({
-				capabilities = lsp_capabilities,
-				cmd = {
-					"clangd",
-					"--offset-encoding=utf-16",
-				},
-			})
-		end,
-
-		["pyright"] = function()
-			lspconfig.pyright.setup({
-				capabilities = lsp_capabilities,
-				settings = {
-					pyright = {
-						autoImportCompletion = true,
-					},
-					python = {
-						analysis = {
-							autoSearchPaths = true,
-							diagnosticMode = "openFilesOnly",
-							useLibraryCodeForTypes = true,
-							typeCheckingMode = "basic",
-						},
-					},
-				},
-			})
-		end,
-
-		["sqlls"] = function()
-			lspconfig.sqlls.setup({
-				capabilities = lsp_capabilities,
-				filetypes = { "sql" },
-				root_dir = function(_)
-					return vim.uv.cwd()
-				end,
-			})
-		end,
+	-- stylua/formatters are installed via mason but are not language servers we
+	-- want auto-enabled as LSP clients.
+	automatic_enable = {
+		exclude = { "stylua" },
 	},
 })
 
