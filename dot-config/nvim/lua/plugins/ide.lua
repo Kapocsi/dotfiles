@@ -22,22 +22,22 @@ end
 local pdf_previwer = is_program_installed("zathura") and "zathura" or "skim"
 
 return {
-{ 
-    "danymat/neogen", 
-    config = true,
-    -- Uncomment next line if you want to follow only stable versions
-    -- version = "*" 
-},
+	{
+		"danymat/neogen",
+		config = true,
+		-- Uncomment next line if you want to follow only stable versions
+		-- version = "*"
+	},
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
 	"hrsh7th/cmp-nvim-lsp",
 	"hrsh7th/nvim-cmp",
-	"VonHeikemen/lsp-zero.nvim",
 	"hrsh7th/cmp-path",
 	"hrsh7th/cmp-buffer",
 	"stevearc/dressing.nvim",
 	{
 		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("fzf-lua").setup({})
 		end,
@@ -58,6 +58,15 @@ return {
 		lazy = false,
 		init = function()
 			vim.g.vimtex_view_method = pdf_previwer
+		end,
+	},
+	{
+		"andythigpen/nvim-coverage",
+		version = "*",
+		config = function()
+			require("coverage").setup({
+				auto_reload = true,
+			})
 		end,
 	},
 }

@@ -1,9 +1,9 @@
 local fzf_lua = require("fzf-lua")
 local wk = require("which-key")
 
-vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
-vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
-vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+vim.keymap.set("n", "gl", vim.diagnostic.open_float)
+vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end)
+vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end)
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "LSP actions",

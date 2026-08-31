@@ -1,22 +1,9 @@
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.cmd([[
-    highlight Folded guibg=none guifg=none
-]])
-
-vim.opt.foldcolumn = "1" -- Show fold column
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 99
-vim.opt.foldenable = true
-
 return {
-	"LunarVim/bigfile.nvim",
 	"mhartington/formatter.nvim",
 	{
 		"L3MON4D3/LuaSnip",
 		build = "make install_jsregexp",
 	},
-	"nvim-treesitter/nvim-treesitter",
 	--- Make nerdfonts easier to type
 	{
 		"2kabhishek/nerdy.nvim",
@@ -26,9 +13,8 @@ return {
 		},
 		cmd = "Nerdy",
 	},
-	"jose-elias-alvarez/nvim-lsp-ts-utils",
 	{
-		"norcalli/nvim-colorizer.lua",
+		"catgoose/nvim-colorizer.lua",
 		config = function()
 			require("colorizer").setup()
 		end,
@@ -38,7 +24,6 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
-
 		config = function()
 			require("gitlinker").setup()
 		end,
@@ -56,15 +41,11 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
 		build = ":TSUpdate",
+		dependencies = { "windwp/nvim-ts-autotag" },
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				highlight = { enable = true },
-				indent = { enable = true },
-				ensure_installed = { "lua", "javascript", "python", "c", "cpp" }, -- Add your languages
-				incremental_selection = { enable = true },
-				fold = { enable = true },
-			})
+			require("nvim-ts-autotag").setup()
 		end,
 	},
 }

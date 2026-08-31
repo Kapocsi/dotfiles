@@ -29,17 +29,3 @@ vim.filetype.add({
 	},
 })
 
----@diagnostic disable-next-line: missing-parameter
-require("nvim-ts-autotag").setup()
-require("nvim-treesitter.configs").setup({
-	ensure_installed = "all",
-	sync_install = false,
-	auto_install = true,
-	ignore_install = {},
-
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = false,
-	},
-	modules = {},
-})

@@ -2,7 +2,6 @@ return {
 	"xiyaowong/transparent.nvim",
 	"JoosepAlviste/nvim-ts-context-commentstring",
 	"numToStr/Comment.nvim",
-	"windwp/nvim-ts-autotag",
 	"mbbill/undotree",
 	{
 		"altermo/ultimate-autopair.nvim",

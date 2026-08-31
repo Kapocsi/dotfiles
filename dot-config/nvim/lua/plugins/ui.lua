@@ -17,10 +17,18 @@ return {
 		config = function()
 			require("neo-tree").setup({
 				close_if_last_window = true,
-				enable_normal_mode_for_inputs = true,
 				filesystem = {
 					filtered_items = {
 						hide_dotfiles = false,
+					},
+				},
+				event_handlers = {
+					{
+						event = "neo_tree_popup_input_ready",
+						handler = function(args)
+							vim.cmd("stopinsert")
+							vim.keymap.set("i", "<esc>", vim.cmd.stopinsert, { noremap = true, buffer = args.bufnr })
+						end,
 					},
 				},
 			})
