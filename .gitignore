@@ -6,3 +6,5 @@ dot-config/tmux/plugins
 dot-ssh/config
 packages/wait4exit/wait4exit
 **/.DS_Store
+dot-config/pgcli/history
+dot-config/pgcli/log

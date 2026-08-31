@@ -19,11 +19,10 @@ path+=("$HOME/hatari-st/")
 fpath+=("$HOME/dotfiles/zfunc")
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  path+=("/Library/Frameworks/Python.framework/Versions/3.10/bin")
   path+=("/opt/homebrew/opt/mysql-client/bin")
   path+=("/opt/homebrew/opt/postgresql@15/bin")
+  path+=("/opt/homebrew/opt/libpq/bin")
   path+=("/opt/local/bin" "/opt/local/sbin")
-  path+=($HOME/Library/Python/*/bin)
 fi
 
 # Preview file content using bat (https://github.com/sharkdp/bat)
