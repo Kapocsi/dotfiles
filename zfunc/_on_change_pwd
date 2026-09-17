@@ -1,17 +1,23 @@
 function _on_change_pwd() {
-    if [[ -v IN_VENV ]]; then
-        return
+    # (de)activate the venv belonging to the project we're now in
+    local root=$(git rev-parse --show-toplevel 2>/dev/null)
+    local dir
+
+    if [[ -n $root ]]; then
+        dir=$root
+    else
+        # not a repo: walk up from $PWD looking for a .venv
+        dir=$PWD
+        while [[ ! -d $dir/.venv && $dir != / ]]; do
+            dir=${dir:h}
+        done
     fi
 
-    # Auto setup .venv files
-    local dir=$(git rev-parse --show-toplevel 2>/dev/null || echo $PWD)
-
-    if [[ ! -v IN_VENV && -d $dir/.venv  ]] then 
-        source $dir/.venv/bin/activate 
-        _IN_VENV=
-    elif 
-    [[ $(type deactivate) == "deactivate is a shell function"* ]] then
+    if [[ -d $dir/.venv ]]; then
+        # already in this project's venv, nothing to do
+        [[ $VIRTUAL_ENV == $dir/.venv ]] && return
+        source $dir/.venv/bin/activate
+    elif [[ -n $VIRTUAL_ENV ]] && (( $+functions[deactivate] )); then
         deactivate
-        unset _IN_VENV
     fi
 }

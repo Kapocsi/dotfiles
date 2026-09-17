@@ -60,3 +60,4 @@ function whoisme () {
 function sdf() {
     df | tee >(head -n1) | tail -n+2 | sort -rk4
 }
+export PATH="/opt/homebrew/opt/openssl@4/bin:$PATH"

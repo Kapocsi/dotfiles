@@ -5,7 +5,7 @@ require("formatter").setup({
 	filetype = {
 		tex = function()
 			return {
-				exe = "latexindent",
+				exe = "/opt/homebrew/bin/latexindent",
 				stdin = true,
 			}
 		end,
