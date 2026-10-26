@@ -51,6 +51,7 @@ wk.add({
 	{ "<leader>|", "<cmd>vsplit<cr>", desc = "Vertical Split" },
 	{ "z=", fzf_lua.spell_suggest, desc = "Fix Spelling" },
 	{ "<leader>gb", "<cmd>BlameToggle virtual<CR>", desc = "Toggle Git Blame" },
+	{ "<leader>gy", "<cmd>GitLink<CR>", desc = "Copy link to loc" },
 })
 
 wk.add({

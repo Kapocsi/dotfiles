@@ -40,8 +40,8 @@ export NVM_DIR="$HOME/.nvm"
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+    *":$PNPM_HOME:"*) ;;
+    *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
 
@@ -54,10 +54,14 @@ function publicip () {
     curl icanhazip.com
 }
 function whoisme () {
-	whois $(publicip)
+    whois $(publicip)
 }
 
 function sdf() {
     df | tee >(head -n1) | tail -n+2 | sort -rk4
 }
 export PATH="/opt/homebrew/opt/openssl@4/bin:$PATH"
+
+# Added by the Hunk installer (https://hunk.dev)
+export PATH='/home/thomask/.hunk/bin':"$PATH"
+source /usr/share/doc/git-extras/git-extras-completion.zsh
