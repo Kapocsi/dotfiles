@@ -14,3 +14,9 @@ if [[ ! -S "$SSH_AUTH_SOCK" ]] && firejail --list 2> /dev/null > /dev/null; then
 fi
 
 alias open="xdg-open"
+
+# pnpm (standalone installer)
+export PNPM_HOME="$HOME/.local/share/pnpm"
+[[ ":$PATH:" != *":$PNPM_HOME:"* ]] && export PATH="$PNPM_HOME:$PATH"
+
+source /usr/share/doc/git-extras/git-extras-completion.zsh
