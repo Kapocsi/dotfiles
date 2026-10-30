@@ -32,6 +32,10 @@ local menu = "rofi -modi drun,run -show drun"
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
 
+-- Pin to the NVIDIA card (01:00.0). Without this, a restart while the monitor is
+-- asleep/disconnected can land on the AMD iGPU (10:00.0), which has nothing attached.
+hl.env("AQ_DRM_DEVICES", "/dev/dri/nvidia-dgpu")
+
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
@@ -82,6 +86,26 @@ hl.config({
         preserve_split = true,
     },
 
+    group = {
+        groupbar = {
+            stacked = false, -- tabbed look, like i3's $mod+w
+            height = 24,
+            font_size = 13,
+            font_weight_active = "bold",
+            blur = true,
+            text_color = "rgba(ffffffff)",
+            text_color_inactive = "rgba(b0b0b0ff)",
+            col = {
+                active = "rgba(0a0a0acc)",
+                inactive = "rgba(0a0a0a66)",
+            },
+        },
+        col = {
+            border_active = "rgba(33ccffee)",
+            border_inactive = "rgba(595959aa)",
+        },
+    },
+
     master = {
         new_status = "master",
     },
@@ -89,6 +113,11 @@ hl.config({
     misc = {
         force_default_wallpaper = -1,
         disable_hyprland_logo   = false,
+    },
+
+    render = {
+        -- Don't flip the monitor into HDR/10-bit when a fullscreen app (e.g. video) asks for it
+        cm_auto_hdr = 0,
     },
 })
 
@@ -141,6 +170,9 @@ hl.on("hyprland.start", function()
     -- Notifications (Wayland-native). If you want dunst, swap to `dunst`.
     hl.exec_cmd("mako")
 
+    -- Keep clipboard contents after the source app closes
+    hl.exec_cmd("wl-clip-persist --clipboard regular")
+
     -- Network tray
     hl.exec_cmd("nm-applet")
 
@@ -192,6 +224,15 @@ hl.bind(mod .. " + space", hl.dsp.window.cycle_next())
 -- i3 focus parent (no direct equivalent; use "last/urgent" as a practical stand-in)
 hl.bind(mod .. " + A", hl.dsp.focus({ urgent_or_last = true }))
 
+-- i3 split toggle: $mod+e flips the focused window between side-by-side and top/bottom
+hl.bind(mod .. " + E", hl.dsp.layout("togglesplit"))
+
+-- i3 tabbed layout: $mod+w toggles the focused window into/out of a tabbed group
+hl.bind(mod .. " + W",             hl.dsp.group.toggle())
+-- i3 tab focus: cycle through windows inside a tabbed group
+hl.bind(mod .. " + bracketright",  hl.dsp.group.next())
+hl.bind(mod .. " + bracketleft",   hl.dsp.group.prev())
+
 -- Workspaces 1..10, and move window to workspace (silently)
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
@@ -227,11 +268,12 @@ hl.define_submap("resize", function()
     hl.bind(mod .. " + R",  hl.dsp.submap("reset"))
 end)
 
--- --- Media keys (your i3 pactl + xbindkeys playerctl) ---
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ +10%"))
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ -10%"))
-hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("pactl set-sink-mute @DEFAULT_SINK@ toggle"))
-hl.bind("XF86AudioMicMute",     hl.dsp.exec_cmd("pactl set-source-mute @DEFAULT_SOURCE@ toggle"))
+-- --- Media keys (wpctl + xbindkeys playerctl) ---
+-- 1% per roller notch; -l 1.0 stops raising past 100%
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 1%+"))
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"))
+hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
+hl.bind("XF86AudioMicMute",     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"))
 
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"))
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl pause"))
