@@ -1,0 +1,58 @@
+#! /usr/bin/env bash
+# Drive hyprsunset's colour temperature from the real sun position:
+# neutral during the day, warming from the start of the evening golden hour
+# until dusk, and cooling back from dawn until the morning golden hour ends.
+# Sun times come from api.sunrise-sunset.org, fetched once a day.
+
+# Filled in by build.sh from location.env.asc (this repo is public)
+LAT=$LATITUDE
+LNG=$LONGITUDE
+
+DAY_TEMP=6500    # where the fade starts/ends (screen is identity in daytime)
+NIGHT_TEMP=4000
+INTERVAL=60      # seconds between updates
+
+# Seconds since local midnight for any `date -d` string
+tod() {
+    local h m s
+    read -r h m s < <(date -d "$1" '+%-H %-M %-S')
+    echo $(( h * 3600 + m * 60 + s ))
+}
+
+fetch_times() {
+    local json fields
+    json=$(curl -sf --max-time 10 \
+        "https://api.sunrise-sunset.org/v2?lat=$LAT&lng=$LNG&date=$(date +%F)") || return 1
+    # Fields are missing on API errors and during polar day/night
+    fields=$(jq -er '[.dawn, .golden_hour.morning.end, .golden_hour.evening.begin, .dusk]
+        | if all then @tsv else error end' <<<"$json") || return 1
+    read -r dawn morning evening dusk <<<"$fields"
+    dawn=$(tod "$dawn") morning=$(tod "$morning")
+    evening=$(tod "$evening") dusk=$(tod "$dusk")
+}
+
+# Linear step from $1 to $2 as $now moves from $3 to $4
+fade() { echo $(( $1 + ($2 - $1) * (now - $3) / ($4 - $3) )); }
+
+fetched=""
+while true; do
+    # On failure keep the previous day's times (a few minutes off) and retry
+    if [[ $fetched != $(date +%F) ]] && fetch_times; then
+        fetched=$(date +%F)
+    fi
+
+    if [[ -n $dusk ]]; then
+        now=$(tod now)
+        if (( now < dawn || now >= dusk )); then
+            hyprctl hyprsunset temperature "$NIGHT_TEMP"
+        elif (( now < morning )); then
+            hyprctl hyprsunset temperature "$(fade "$NIGHT_TEMP" "$DAY_TEMP" "$dawn" "$morning")"
+        elif (( now < evening )); then
+            hyprctl hyprsunset identity
+        else
+            hyprctl hyprsunset temperature "$(fade "$DAY_TEMP" "$NIGHT_TEMP" "$evening" "$dusk")"
+        fi >/dev/null
+    fi
+
+    sleep "$INTERVAL"
+done

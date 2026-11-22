@@ -51,6 +51,17 @@ envsubst < ./dot-ssh/config.tmpl > ./dot-ssh/config
 # launched
 envsubst < $ALACRITTY_CONF_PATH.tmpl > $ALACRITTY_CONF_PATH
 
+# Hyprland sunset fade, the coordinates are kept encrypted since this repo is
+# public. Only decrypt again when the template or location has changed. The
+# envsubst variable list is required, otherwise it blanks the script's own vars
+SUNSET_FADE_PATH=./scripts/sunset-fade
+LOCATION_PATH=./scripts/location.env.asc
+if [[ "$OSTYPE" == "linux"* ]] && [[ ! -f $SUNSET_FADE_PATH || $SUNSET_FADE_PATH.tmpl -nt $SUNSET_FADE_PATH || $LOCATION_PATH -nt $SUNSET_FADE_PATH ]]; then
+    LOCATION=$(gpg --quiet --decrypt $LOCATION_PATH) \
+        && env $LOCATION envsubst '$LATITUDE $LONGITUDE' < $SUNSET_FADE_PATH.tmpl > $SUNSET_FADE_PATH \
+        && chmod +x $SUNSET_FADE_PATH
+fi
+
 # Decrypt openvpn config
 if [ ! -f ~/dotfiles/dot-config/openvpn.tar  ]; then
 gpg --decrypt-files ~/dotfiles/dot-config/openvpn.tar.gpg
